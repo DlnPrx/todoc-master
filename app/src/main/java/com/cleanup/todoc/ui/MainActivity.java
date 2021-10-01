@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     static ProjectViewModel mProjectViewModel;
     LiveData<List<Task>> mTaskList;
+    LiveData<List<Project>> mProjectList;
     /**
      * List of all projects available in the application
      */
@@ -106,15 +107,18 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         listTasks = findViewById(R.id.list_tasks);
         lblNoTasks = findViewById(R.id.lbl_no_task);
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new TasksAdapter(tasks, this, mProjectViewModel);
+        adapter = new TasksAdapter(tasks, this, mProjectList);
         listTasks.setAdapter(adapter);
         mTaskList = mProjectViewModel.getAllTasks();
+        mProjectList = mProjectViewModel.getAllProjects();
 
         mProjectViewModel.getAllTasks().observe(MainActivity.this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasks) {
-                // adapter.updateTasks(tasks);
+
                 adapter.setTasks(tasks);
+                // adapter.updateTasks(tasks);
+                 updateTasks();
             }
         });
 
@@ -183,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             // If both project and name of the task have been set
             else if (taskProject != null) {
                 // TODO: Replace this by id of persisted task
-                long id = (long) (Math.random() * 50000);
+                //long id = (long) (Math.random() * 50000);
 
 
                 Task task = new Task(
@@ -193,7 +197,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                         new Date().getTime()
                 );
 
-                addTask(task);
+                //addTask(task);
+                mProjectViewModel.createTask(task);
 
                 dialogInterface.dismiss();
             }
@@ -240,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         mProjectViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasks) {
-                if (tasks.size() == 0) {
+                if (tasks.size() == 0 || tasks.size()<1) {
                     lblNoTasks.setVisibility(View.VISIBLE);
                     listTasks.setVisibility(View.GONE);
                 } else {
@@ -262,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
                     }
                     adapter.updateTasks(tasks);
+                    lblNoTasks.setVisibility(View.GONE);
                 }
             }
         });
@@ -318,12 +324,20 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private void populateDialogSpinner() {
 
+mProjectViewModel.getAllProjects().observe(this, new Observer<List<Project>>() {
+    @Override
+    public void onChanged(List<Project> projects) {
 
-        final ArrayAdapter<Project> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mProjectViewModel.getAllProjects().getValue());
+        final ArrayAdapter<Project> adapter = new ArrayAdapter<Project>(getApplicationContext(), android.R.layout.simple_spinner_item, projects);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         if (dialogSpinner != null) {
             dialogSpinner.setAdapter(adapter);
         }
+
+    }
+});
+
+
     }
 
     /**
@@ -355,7 +369,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     private void configureViewModel() {
 
         mProjectViewModel = new ViewModelProvider(this).get(ProjectViewModel.class);
-
+        mProjectList = mProjectViewModel.getAllProjects();
     }
 
     private void setAdapter() {

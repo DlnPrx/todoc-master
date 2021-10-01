@@ -3,7 +3,6 @@ package com.cleanup.todoc.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -16,7 +15,6 @@ import com.cleanup.todoc.dao.ProjectDao;
 import com.cleanup.todoc.dao.TaskDao;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
-import com.cleanup.todoc.repository.ProjectDataRepository;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -68,19 +66,19 @@ public abstract class TodocDatabase extends RoomDatabase {
 
             ContentValues contentValuesTask1 = new ContentValues();
             contentValuesTask1.put("id", 1);
-            contentValuesTask1.put("name", "Task 1");
+            contentValuesTask1.put("name", "Task 1 time1007");
             contentValuesTask1.put("projectId", 1);
-            contentValuesTask1.put("creationTimestamp", 1000);
+            contentValuesTask1.put("creationTimestamp", 1007);
 
             ContentValues contentValuesTask2 = new ContentValues();
             contentValuesTask2.put("id", 2);
-            contentValuesTask2.put("name", "Task 2");
+            contentValuesTask2.put("name", "Task 2 time 1001");
             contentValuesTask2.put("projectId", 1);
             contentValuesTask2.put("creationTimestamp", 1001);
 
             ContentValues contentValuesTask3 = new ContentValues();
             contentValuesTask3.put("id", 3);
-            contentValuesTask3.put("name", "Task 3");
+            contentValuesTask3.put("name", "Task 3 time 1002");
             contentValuesTask3.put("projectId", 3);
             contentValuesTask3.put("creationTimestamp", 1002);
 
