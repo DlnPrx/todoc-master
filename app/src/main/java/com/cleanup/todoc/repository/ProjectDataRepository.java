@@ -33,6 +33,11 @@ public class ProjectDataRepository {
     public Project getProjectById(long projectId) {
         return mProjectDao.getProjectById(projectId);
     }
+    //GET PROJECT COLOR BY ID
+
+    public int getProjectColorById(long projectId){
+        return mProjectDao.getProjectColor(projectId);
+    }
 
     //CREATE
     public void createProject(Project project) {

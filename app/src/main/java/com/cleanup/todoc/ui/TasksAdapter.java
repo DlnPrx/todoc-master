@@ -8,18 +8,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
-import com.cleanup.todoc.repository.ProjectDataRepository;
 import com.cleanup.todoc.viewmodel.ProjectViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +23,8 @@ import java.util.List;
  * @author Gaëtan HERFRAY
  */
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder> {
+
+    ProjectViewModel mProjectViewModel;
     /**
      * The list of tasks the adapter deals with
      */
@@ -44,10 +41,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
      * Instantiates a new TasksAdapter.
      *
      * @param tasks the list of tasks the adapter deals with to set
+     * @param mProjectViewModel
      */
-    TasksAdapter(@NonNull final List<Task> tasks, @NonNull final DeleteTaskListener deleteTaskListener) {
+    TasksAdapter(@NonNull final List<Task> tasks, @NonNull final DeleteTaskListener deleteTaskListener,@NonNull ProjectViewModel mProjectViewModel) {
         this.tasks = tasks;
         this.deleteTaskListener = deleteTaskListener;
+        this.mProjectViewModel = mProjectViewModel;
     }
 
     /**
@@ -165,16 +164,20 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
 
-//           long projectId = task.getProjectId();
-//
-//            if (projectId != null) {
-//               imgProject.setSupportImageTintList(ColorStateList.valueOf(projectId.getColor()));
-//                lblProjectName.setText(projectId.getName());
-//            } else {
-//                imgProject.setVisibility(View.INVISIBLE);
-//                lblProjectName.setText("");
-//            }
+
+            Project project = mProjectViewModel.getProjectById(task.getProjectId());
+                    if ( project != null) {
+                        imgProject.setSupportImageTintList(ColorStateList.valueOf(project.getColor()));
+                        lblProjectName.setText(project.getName());
+                    } else {
+                        imgProject.setVisibility(View.INVISIBLE);
+                        lblProjectName.setText("");
+                    }
+                }
+
+
+
 
         }
     }
-}
+

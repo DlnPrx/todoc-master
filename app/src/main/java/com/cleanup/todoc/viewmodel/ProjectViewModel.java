@@ -11,7 +11,6 @@ import com.cleanup.todoc.repository.ProjectDataRepository;
 import com.cleanup.todoc.repository.TaskDataRepository;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 
 public class ProjectViewModel extends AndroidViewModel {
     //----------
@@ -62,6 +61,9 @@ public class ProjectViewModel extends AndroidViewModel {
     public Project getProjectById(long projectId) {
         return mProjectDataRepository.getProjectById(projectId);
 
+    }
+    public int getProjectColorById(long projectId){
+        return mProjectDataRepository.getProjectColorById(projectId);
     }
     //----------
     // TASKS

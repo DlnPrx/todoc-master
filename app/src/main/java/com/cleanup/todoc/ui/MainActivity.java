@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,14 +39,14 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity implements TasksAdapter.DeleteTaskListener {
 
-    ProjectViewModel mProjectViewModel;
+    static ProjectViewModel mProjectViewModel;
     LiveData<List<Task>> mTaskList;
     /**
      * List of all projects available in the application
      */
-   // private final Project[] allProjects = Project.getAllProjects();
+    // private final Project[] allProjects = Project.getAllProjects();
 
-    private Project[] allProjects ;
+    private Project[] allProjects;
     /**
      * List of all current tasks of the application
      */
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     /**
      * The adapter which handles the list of tasks
      */
-    private final TasksAdapter adapter = new TasksAdapter(tasks, this);
+    private TasksAdapter adapter;
 
     /**
      * The sort method to be used to display tasks
@@ -107,23 +106,17 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         listTasks = findViewById(R.id.list_tasks);
         lblNoTasks = findViewById(R.id.lbl_no_task);
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-       listTasks.setAdapter(adapter);
+        adapter = new TasksAdapter(tasks, this, mProjectViewModel);
+        listTasks.setAdapter(adapter);
         mTaskList = mProjectViewModel.getAllTasks();
 
         mProjectViewModel.getAllTasks().observe(MainActivity.this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasks) {
-               // adapter.updateTasks(tasks);
+                // adapter.updateTasks(tasks);
                 adapter.setTasks(tasks);
             }
         });
-//        mProjectViewModel.getTaskByAlphabeticalDescending().observe(this, new Observer<List<Task>>() {
-//            @Override
-//            public void onChanged(List<Task> tasks) {
-//                adapter.setTasks(tasks);
-//            }
-//        });
 
 
         findViewById(R.id.fab_add_task).setOnClickListener(new View.OnClickListener() {
@@ -205,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 dialogInterface.dismiss();
             }
             // If name has been set, but project has not been set (this should never occur)
-            else{
+            else {
                 dialogInterface.dismiss();
             }
         }
@@ -258,13 +251,13 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                             Collections.sort(tasks, new Task.TaskAZComparator());
                             break;
                         case ALPHABETICAL_INVERTED:
-                             Collections.sort(tasks, new Task.TaskZAComparator());
+                            Collections.sort(tasks, new Task.TaskZAComparator());
                             break;
                         case RECENT_FIRST:
-                             Collections.sort(tasks, new Task.TaskRecentComparator());
+                            Collections.sort(tasks, new Task.TaskRecentComparator());
                             break;
                         case OLD_FIRST:
-                             Collections.sort(tasks, new Task.TaskOldComparator());
+                            Collections.sort(tasks, new Task.TaskOldComparator());
                             break;
 
                     }
@@ -358,22 +351,20 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
          */
         NONE
     }
-    private void configureViewModel(){
+
+    private void configureViewModel() {
 
         mProjectViewModel = new ViewModelProvider(this).get(ProjectViewModel.class);
 
     }
-    private void setAdapter(){
-          mProjectViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+
+    private void setAdapter() {
+        mProjectViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasks) {
                 adapter.setTasks(tasks);
             }
         });
-    }
-
-    public ProjectViewModel getProjectViewModel() {
-        return mProjectViewModel;
     }
 
 

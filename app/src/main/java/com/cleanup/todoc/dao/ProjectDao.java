@@ -19,6 +19,9 @@ public interface ProjectDao {
     @Query("SELECT * FROM project_table WHERE id = :projectId")
     Project getProjectById(long projectId);
 
+    @Query("SELECT project_table.color FROM project_table WHERE id = :projectId")
+    int getProjectColor(long projectId);
+
     @Insert
     void insertProject(Project project);
 
