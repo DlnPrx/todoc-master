@@ -30,14 +30,11 @@ public class ProjectDataRepository {
     }
 
     //GET PROJECT BY ID
-    public LiveData<Project> getProjectById(long projectId) {
-        return mProjectDao.getProjectById(projectId);
-    }
-    //GET PROJECT COLOR BY ID
 
-    public int getProjectColorById(long projectId){
-        return mProjectDao.getProjectColor(projectId);
+    public LiveData<Project> getProjectById(long projectId) {
+            return mProjectDao.getProjectById(projectId);
     }
+
 
     //CREATE
     public void createProject(Project project) {

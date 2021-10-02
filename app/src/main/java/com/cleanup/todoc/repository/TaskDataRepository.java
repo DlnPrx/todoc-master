@@ -32,8 +32,6 @@ public class TaskDataRepository {
         return mTaskDao.getAllTasks();
     }
 
-//getProjectByid
-    public Project getProjectByID(long projectId){return mTaskDao.getProjectById(projectId);}
 
     //create
     public void createTask(Task task) {databaseWriteExecutor.execute(new Runnable() {

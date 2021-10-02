@@ -57,11 +57,12 @@ public class ProjectViewModel extends AndroidViewModel {
         mProjectDataRepository.updateProject(project);
 
     }
-
-
-    public int getProjectColorById(long projectId){
-        return mProjectDataRepository.getProjectColorById(projectId);
+    public LiveData<Project> getProjectById(long projectId){
+        return mProjectDataRepository.getProjectById(projectId);
     }
+
+
+
     //----------
     // TASKS
     //----------
@@ -82,9 +83,7 @@ public class ProjectViewModel extends AndroidViewModel {
         mTaskDataRepository.updateTask(task);
     }
 
-    public Project getProjectById(long projectId){
-        return mTaskDataRepository.getProjectByID(projectId);
-    }
+
 
 
 

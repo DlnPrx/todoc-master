@@ -17,6 +17,7 @@ import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.viewmodel.ProjectViewModel;
 
 import java.util.List;
+import androidx.lifecycle.LifecycleOwner;
 
 /**
  * <p>Adapter which handles the list of tasks to display in the dedicated RecyclerView.</p>

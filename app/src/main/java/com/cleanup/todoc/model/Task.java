@@ -3,6 +3,7 @@ package com.cleanup.todoc.model;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -14,17 +15,19 @@ import java.util.Comparator;
  *
  * @author Gaëtan HERFRAY
  */
-@Entity(tableName = "task_table",foreignKeys = @ForeignKey(entity = Project.class,parentColumns = "id",childColumns = "projectId"))
+@Entity(tableName = "task_table",foreignKeys = @ForeignKey(entity = Project.class,parentColumns = "project_id",childColumns = "projectId"))
 public class Task {
     /**
      * The unique identifier of the task
      */
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "task_id",index = true)
     private long id;
 
     /**
      * The unique identifier of the project associated to the task
      */
+
     private long projectId;
 
     /**
