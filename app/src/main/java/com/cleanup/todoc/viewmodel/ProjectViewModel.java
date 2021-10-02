@@ -57,14 +57,12 @@ public class ProjectViewModel extends AndroidViewModel {
         mProjectDataRepository.updateProject(project);
 
     }
-
-    public Project getProjectById(long projectId) {
+    public LiveData<Project> getProjectById(long projectId){
         return mProjectDataRepository.getProjectById(projectId);
+    }
 
-    }
-    public int getProjectColorById(long projectId){
-        return mProjectDataRepository.getProjectColorById(projectId);
-    }
+
+
     //----------
     // TASKS
     //----------
@@ -86,21 +84,7 @@ public class ProjectViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<List<Task>> getTaskByAlphabeticalAscending() {
-        return mTaskDataRepository.getTaskByAlphabeticalAscending();
-    }
 
-    public LiveData<List<Task>> getTaskByAlphabeticalDescending() {
-        return mTaskDataRepository.getTaskByAlphabeticalDescending();
-    }
-
-    public LiveData<List<Task>> getTaskByTasksRecentFirst() {
-        return mTaskDataRepository.getTaskByTasksRecentFirst();
-    }
-
-    public LiveData<List<Task>> getTaskByOlderFirst() {
-        return mTaskDataRepository.getTaskByOlderFirst();
-    }
 
 
 }

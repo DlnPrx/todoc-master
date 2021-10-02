@@ -3,6 +3,7 @@ package com.cleanup.todoc.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -15,6 +16,7 @@ import com.cleanup.todoc.dao.ProjectDao;
 import com.cleanup.todoc.dao.TaskDao;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.repository.ProjectDataRepository;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -50,35 +52,35 @@ public abstract class TodocDatabase extends RoomDatabase {
 
 
             ContentValues contentValuesProject1 = new ContentValues();
-            contentValuesProject1.put("id", 1);
+            contentValuesProject1.put("project_id", 1);
             contentValuesProject1.put("name", "Project 1");
             contentValuesProject1.put("color", (Color.rgb(0,0,255)));
 
             ContentValues contentValuesProject2 = new ContentValues();
-            contentValuesProject2.put("id", 2);
+            contentValuesProject2.put("project_id", 2);
             contentValuesProject2.put("name", "Project 2");
             contentValuesProject2.put("color", (Color.rgb(255,0,0)));
 
             ContentValues contentValuesProject3 = new ContentValues();
-            contentValuesProject3.put("id", 3);
+            contentValuesProject3.put("project_id", 3);
             contentValuesProject3.put("name", "Project 3");
             contentValuesProject3.put("color", (Color.rgb(0,255,0)));
 
             ContentValues contentValuesTask1 = new ContentValues();
-            contentValuesTask1.put("id", 1);
-            contentValuesTask1.put("name", "Task 1 time1007");
+            contentValuesTask1.put("task_id", 1);
+            contentValuesTask1.put("name", "Task 1");
             contentValuesTask1.put("projectId", 1);
-            contentValuesTask1.put("creationTimestamp", 1007);
+            contentValuesTask1.put("creationTimestamp", 1000);
 
             ContentValues contentValuesTask2 = new ContentValues();
-            contentValuesTask2.put("id", 2);
-            contentValuesTask2.put("name", "Task 2 time 1001");
+            contentValuesTask2.put("task_id", 2);
+            contentValuesTask2.put("name", "Task 2");
             contentValuesTask2.put("projectId", 1);
             contentValuesTask2.put("creationTimestamp", 1001);
 
             ContentValues contentValuesTask3 = new ContentValues();
-            contentValuesTask3.put("id", 3);
-            contentValuesTask3.put("name", "Task 3 time 1002");
+            contentValuesTask3.put("task_id", 3);
+            contentValuesTask3.put("name", "Task 3");
             contentValuesTask3.put("projectId", 3);
             contentValuesTask3.put("creationTimestamp", 1002);
 
