@@ -1,6 +1,7 @@
 package com.cleanup.todoc.ui;
 
 import android.content.res.ColorStateList;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import java.util.List;
  * @author Gaëtan HERFRAY
  */
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder> {
-
+    private String TAG = "test123";
     ProjectViewModel mProjectViewModel;
     /**
      * The list of tasks the adapter deals with
@@ -165,15 +166,17 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
             imgDelete.setTag(task);
 
 
-            Project project = mProjectViewModel.getProjectById(task.getProjectId());
-                    if ( project != null) {
-                        imgProject.setSupportImageTintList(ColorStateList.valueOf(project.getColor()));
-                        lblProjectName.setText(project.getName());
-                    } else {
-                        imgProject.setVisibility(View.INVISIBLE);
-                        lblProjectName.setText("");
-                    }
-                }
+
+//                    if ( mProjectViewModel.getProjectById(task.getProjectId()) != null) {
+//                        imgProject.setSupportImageTintList(ColorStateList.valueOf(mProjectViewModel.getProjectById(task.getProjectId()).getColor()));
+//                        lblProjectName.setText(mProjectViewModel.getProjectById(task.getProjectId()).getName());
+//
+//                    } else {
+//                        imgProject.setVisibility(View.INVISIBLE);
+//                        lblProjectName.setText("");
+//
+//                    }
+             }
 
 
 

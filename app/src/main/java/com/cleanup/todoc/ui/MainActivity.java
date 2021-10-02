@@ -101,20 +101,29 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        configureViewModel();
+
+
+
+
         setContentView(R.layout.activity_main);
+
         listTasks = findViewById(R.id.list_tasks);
         lblNoTasks = findViewById(R.id.lbl_no_task);
+        lblNoTasks.setVisibility(View.GONE);
+        listTasks.setVisibility(View.GONE);
+        configureViewModel();
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapter = new TasksAdapter(tasks, this, mProjectViewModel);
         listTasks.setAdapter(adapter);
         mTaskList = mProjectViewModel.getAllTasks();
 
+
         mProjectViewModel.getAllTasks().observe(MainActivity.this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasks) {
-                // adapter.updateTasks(tasks);
+
                 adapter.setTasks(tasks);
+
             }
         });
 
@@ -125,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 showAddTaskDialog();
             }
         });
+
     }
 
     @Override
@@ -183,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             // If both project and name of the task have been set
             else if (taskProject != null) {
                 // TODO: Replace this by id of persisted task
-                long id = (long) (Math.random() * 50000);
+               // long id = (long) (Math.random() * 50000);
 
 
                 Task task = new Task(
@@ -228,8 +238,9 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * @param task the task to be added to the list
      */
     private void addTask(@NonNull Task task) {
-        tasks.add(task);
-        updateTasks();
+        mProjectViewModel.createTask(task);
+
+        //updateTasks();
     }
 
     /**
@@ -243,6 +254,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 if (tasks.size() == 0) {
                     lblNoTasks.setVisibility(View.VISIBLE);
                     listTasks.setVisibility(View.GONE);
+
                 } else {
                     lblNoTasks.setVisibility(View.GONE);
                     listTasks.setVisibility(View.VISIBLE);
@@ -318,12 +330,19 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private void populateDialogSpinner() {
 
+        mProjectViewModel.getAllProjects().observe(this, new Observer<List<Project>>() {
+            @Override
+            public void onChanged(List<Project> projects) {
 
-        final ArrayAdapter<Project> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mProjectViewModel.getAllProjects().getValue());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        if (dialogSpinner != null) {
-            dialogSpinner.setAdapter(adapter);
-        }
+                 ArrayAdapter<Project> adapter = new ArrayAdapter<Project>(getApplicationContext(), android.R.layout.simple_spinner_item, projects);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                if (dialogSpinner != null) {
+                    dialogSpinner.setAdapter(adapter);
+                }
+            }
+        });
+
+
     }
 
     /**
@@ -355,17 +374,11 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     private void configureViewModel() {
 
         mProjectViewModel = new ViewModelProvider(this).get(ProjectViewModel.class);
+        updateTasks();
 
     }
 
-    private void setAdapter() {
-        mProjectViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
-            @Override
-            public void onChanged(List<Task> tasks) {
-                adapter.setTasks(tasks);
-            }
-        });
-    }
+
 
 
 }

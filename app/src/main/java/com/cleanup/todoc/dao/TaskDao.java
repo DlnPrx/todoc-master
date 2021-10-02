@@ -19,29 +19,8 @@ public interface TaskDao {
     @Query("SELECT * FROM task_table")
     LiveData<List<Task>> getAllTasks();
 
-    /**
-     * Comparator to sort task from A to Z
-     */
-    @Query("SELECT * FROM task_table  ORDER BY name ASC ")
-    LiveData<List<Task>> getTasksByAlphabeticalAscending( );
-
-    /**
-     * Comparator to sort task from Z to A
-     */
-    @Query("SELECT * FROM task_table  ORDER BY name DESC")
-    LiveData<List<Task>> getTasksByAlphabeticalDescending( );
-    /**
-     * Comparator to sort task from last created to first created
-     */
-    @Query("SELECT * FROM task_table  ORDER BY id ASC")
-    LiveData<List<Task>> getTasksRecentFirst();
-
-    /**
-     * Comparator to sort task from first created to last created
-     */
-    @Query("SELECT * FROM task_table ORDER BY id DESC")
-    LiveData<List<Task>> getTasksOlderFirst();
-
+    @Query("SELECT * FROM project_table WHERE id = :projectId  ")
+    Project getProjectById(long projectId);
     @Insert
     void insertTask(Task task);
 

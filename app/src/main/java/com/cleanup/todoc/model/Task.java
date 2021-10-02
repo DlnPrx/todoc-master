@@ -2,6 +2,7 @@ package com.cleanup.todoc.model;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -85,6 +86,7 @@ public class Task {
     public void setCreationTimestamp(long creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
     }
+
 
 
     /**

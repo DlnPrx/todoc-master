@@ -32,25 +32,8 @@ public class TaskDataRepository {
         return mTaskDao.getAllTasks();
     }
 
-    //get tasks by projectId and order by A-Z
-    public LiveData<List<Task>> getTaskByAlphabeticalAscending() {
-        return mTaskDao.getTasksByAlphabeticalAscending();
-    }
-
-    //get tasks by projectId and order by Z-A
-    public LiveData<List<Task>> getTaskByAlphabeticalDescending() {
-        return mTaskDao.getTasksByAlphabeticalDescending();
-    }
-
-    //get tasks by projectId and order by recent-older
-    public LiveData<List<Task>> getTaskByTasksRecentFirst() {
-        return mTaskDao.getTasksRecentFirst();
-    }
-
-    //get tasks by projectId and order by older-recent
-    public LiveData<List<Task>> getTaskByOlderFirst() {
-        return mTaskDao.getTasksOlderFirst();
-    }
+//getProjectByid
+    public Project getProjectByID(long projectId){return mTaskDao.getProjectById(projectId);}
 
     //create
     public void createTask(Task task) {databaseWriteExecutor.execute(new Runnable() {

@@ -30,7 +30,7 @@ public class ProjectDataRepository {
     }
 
     //GET PROJECT BY ID
-    public Project getProjectById(long projectId) {
+    public LiveData<Project> getProjectById(long projectId) {
         return mProjectDao.getProjectById(projectId);
     }
     //GET PROJECT COLOR BY ID

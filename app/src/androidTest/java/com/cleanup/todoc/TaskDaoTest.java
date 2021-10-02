@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.util.Log;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -63,9 +64,9 @@ public class TaskDaoTest {
         mDatabase.projectDao().insertProject(PROJECT_DEMO);
        
         // TEST
-        //Project project = LiveDataTestUtil.getValue(mDatabase.projectDao().getProjectById(PROJECT_ID));
-       // Assert.assertNotNull(project);
-      //  assertTrue(project.getName().equals(PROJECT_DEMO.getName()) && project.getId() == PROJECT_ID);
+//        LiveData<Project> project = (mDatabase.projectDao().getProjectById(PROJECT_ID));
+//        Assert.assertNotNull(project);
+//        assertTrue(project.getName().equals(PROJECT_DEMO.getName()) && project.getId() == PROJECT_ID);
 
     }
 
