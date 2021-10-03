@@ -1,11 +1,8 @@
 package com.cleanup.todoc;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LiveData;
@@ -63,10 +60,10 @@ public class TaskDaoTest {
         List<Project> projectList = LiveDataTestUtil.getValue(mDatabase.projectDao().getAllProjects());
         mDatabase.projectDao().insertProject(PROJECT_DEMO);
        
-        // TEST
-//        LiveData<Project> project = (mDatabase.projectDao().getProjectById(PROJECT_ID));
-//        Assert.assertNotNull(project);
-//        assertTrue(project.getName().equals(PROJECT_DEMO.getName()) && project.getId() == PROJECT_ID);
+      //   TEST
+      LiveData<Project> project = (mDatabase.projectDao().getProjectById(PROJECT_ID));
+        Assert.assertNotNull(project);
+        assertTrue(LiveDataTestUtil.getValue(project).getName().equals(PROJECT_DEMO.getName()) && LiveDataTestUtil.getValue(project).getId() == PROJECT_ID);
 
     }
 
