@@ -1,7 +1,5 @@
 package com.cleanup.todoc.ui;
 
-import android.content.res.ColorStateList;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +10,17 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
-import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.viewmodel.ProjectViewModel;
 
 import java.util.List;
-import androidx.lifecycle.LifecycleOwner;
 
 /**
  * <p>Adapter which handles the list of tasks to display in the dedicated RecyclerView.</p>
  *
  * @author Gaëtan HERFRAY
  */
-public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder> {
+public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder>  {
     private String TAG = "test123";
     ProjectViewModel mProjectViewModel;
     /**
@@ -65,6 +61,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_task, viewGroup, false);
+
         return new TaskViewHolder(view, deleteTaskListener);
     }
 
@@ -163,8 +160,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
         public void bind(Task task) {
 
+
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
+
+            //imgProject.setSupportImageTintList(ColorStateList.valueOf());
+         //   lblProjectName.setText(mProjectViewModel.getProjectById();
 
 
 

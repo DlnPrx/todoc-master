@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     static ProjectViewModel mProjectViewModel;
     LiveData<List<Task>> mTaskList;
+    private String TAG = "debug123";
     /**
      * List of all projects available in the application
      */
@@ -101,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
 
         setContentView(R.layout.activity_main);
@@ -193,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             // If both project and name of the task have been set
             else if (taskProject != null) {
                 // TODO: Replace this by id of persisted task
-               // long id = (long) (Math.random() * 50000);
+                // long id = (long) (Math.random() * 50000);
 
 
                 Task task = new Task(
@@ -334,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             @Override
             public void onChanged(List<Project> projects) {
 
-                 ArrayAdapter<Project> adapter = new ArrayAdapter<Project>(getApplicationContext(), android.R.layout.simple_spinner_item, projects);
+                ArrayAdapter<Project> adapter = new ArrayAdapter<Project>(getApplicationContext(), android.R.layout.simple_spinner_item, projects);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 if (dialogSpinner != null) {
                     dialogSpinner.setAdapter(adapter);
@@ -378,7 +377,5 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     }
 
-
-
-
 }
+
