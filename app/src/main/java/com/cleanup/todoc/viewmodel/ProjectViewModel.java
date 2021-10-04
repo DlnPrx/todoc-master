@@ -20,18 +20,17 @@ public class ProjectViewModel extends AndroidViewModel {
     private TaskDataRepository mTaskDataRepository;
 
 
+
     //----------
     //DATA
     //----------
 
-    private LiveData<List<Project>> allProjects;
 
     public ProjectViewModel(Application application) {
         super(application);
 
         mProjectDataRepository = new ProjectDataRepository(application);
         mTaskDataRepository = new TaskDataRepository(application);
-        allProjects = mProjectDataRepository.getAllProjects();
     }
     //----------
     // PROJECTS
@@ -57,7 +56,8 @@ public class ProjectViewModel extends AndroidViewModel {
         mProjectDataRepository.updateProject(project);
 
     }
-    public LiveData<Project> getProjectById(long projectId){
+
+    public LiveData<Project> getProjectById(long projectId) {
         return mProjectDataRepository.getProjectById(projectId);
     }
 
@@ -82,9 +82,6 @@ public class ProjectViewModel extends AndroidViewModel {
     public void updateTask(Task task) {
         mTaskDataRepository.updateTask(task);
     }
-
-
-
 
 
 }

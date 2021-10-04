@@ -41,8 +41,10 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     static ProjectViewModel mProjectViewModel;
     LiveData<List<Task>> mTaskList;
+    ArrayList<Project> mProjectList = new ArrayList<>();
     private String TAG = "debug123";
-    /**
+
+       /**
      * List of all projects available in the application
      */
     // private final Project[] allProjects = Project.getAllProjects();
@@ -110,9 +112,10 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         lblNoTasks = findViewById(R.id.lbl_no_task);
         lblNoTasks.setVisibility(View.GONE);
         listTasks.setVisibility(View.GONE);
-        configureViewModel();
+        initViewModel();
+
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new TasksAdapter(tasks, this, mProjectViewModel);
+        adapter = new TasksAdapter(tasks, this, mProjectViewModel,mProjectList);
         listTasks.setAdapter(adapter);
         mTaskList = mProjectViewModel.getAllTasks();
 
@@ -133,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 showAddTaskDialog();
             }
         });
+
 
     }
 
@@ -238,9 +242,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private void addTask(@NonNull Task task) {
         mProjectViewModel.createTask(task);
-
-        //updateTasks();
-    }
+          }
 
     /**
      * Updates the list of tasks in the UI
@@ -344,6 +346,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     }
 
+
+
     /**
      * List of all possible sort methods for task
      */
@@ -370,12 +374,20 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         NONE
     }
 
-    private void configureViewModel() {
+    private void initViewModel() {
 
         mProjectViewModel = new ViewModelProvider(this).get(ProjectViewModel.class);
         updateTasks();
+        mProjectViewModel.getAllProjects().observeForever(new Observer<List<Project>>() {
+            @Override
+            public void onChanged(List<Project> projects) {
+                mProjectList.clear();
+                mProjectList.addAll(projects);
+            }
+        });
 
     }
+
 
 }
 

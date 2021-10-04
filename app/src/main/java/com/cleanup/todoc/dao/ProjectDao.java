@@ -20,7 +20,6 @@ public interface ProjectDao {
     LiveData<Project> getProjectById(long projectId);
 
 
-
     @Insert
     void insertProject(Project project);
 

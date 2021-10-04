@@ -17,7 +17,7 @@ public class ProjectDataRepository {
     private ProjectDao mProjectDao;
     private LiveData<List<Project>> mAllProjects;
     static final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
-
+    Project project;
     public ProjectDataRepository(Application application) {
         TodocDatabase todocDatabase = TodocDatabase.getInstance(application);
         mProjectDao = todocDatabase.projectDao();

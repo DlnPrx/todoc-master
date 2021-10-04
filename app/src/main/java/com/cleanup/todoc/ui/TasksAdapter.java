@@ -1,5 +1,6 @@
 package com.cleanup.todoc.ui;
 
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,22 +8,35 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
+import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.viewmodel.ProjectViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>Adapter which handles the list of tasks to display in the dedicated RecyclerView.</p>
  *
  * @author Gaëtan HERFRAY
  */
-public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder>  {
+public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder>   {
+    @Override
+    public void onViewAttachedToWindow(@NonNull TaskViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+
+    }
+
     private String TAG = "test123";
     ProjectViewModel mProjectViewModel;
+    ArrayList<Project> mProjectList;
+
     /**
      * The list of tasks the adapter deals with
      */
@@ -37,14 +51,15 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
     /**
      * Instantiates a new TasksAdapter.
-     *
-     * @param tasks the list of tasks the adapter deals with to set
+     *  @param tasks             the list of tasks the adapter deals with to set
      * @param mProjectViewModel
+     * @param mProjectList
      */
-    TasksAdapter(@NonNull final List<Task> tasks, @NonNull final DeleteTaskListener deleteTaskListener,@NonNull ProjectViewModel mProjectViewModel) {
+    TasksAdapter(@NonNull final List<Task> tasks, @NonNull final DeleteTaskListener deleteTaskListener, @NonNull ProjectViewModel mProjectViewModel, ArrayList<Project> mProjectList) {
         this.tasks = tasks;
         this.deleteTaskListener = deleteTaskListener;
-        this.mProjectViewModel = mProjectViewModel;
+       // this.mProjectViewModel = mProjectViewModel;
+        this.mProjectList = mProjectList;
     }
 
     /**
@@ -67,7 +82,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder taskViewHolder, int position) {
-      //TODO
+        //TODO
         taskViewHolder.bind(tasks.get(position));
     }
 
@@ -127,7 +142,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         /**
          * Instantiates a new TaskViewHolder.
          *
-         * @param itemView the view of the task item
+         * @param itemView           the view of the task item
          * @param deleteTaskListener the listener for when a task needs to be deleted to set
          */
         TaskViewHolder(@NonNull View itemView, @NonNull DeleteTaskListener deleteTaskListener) {
@@ -157,16 +172,17 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
          * @param task the task to bind in the item view
          */
         //TODO
-
         public void bind(Task task) {
 
 
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
+            int index = (int) task.getProjectId();
+            imgProject.setSupportImageTintList(ColorStateList.valueOf(mProjectList.get(index).getColor()));
+            // lblProjectName.setText();
 
-            //imgProject.setSupportImageTintList(ColorStateList.valueOf());
-         //   lblProjectName.setText(mProjectViewModel.getProjectById();
-
+             //imgProject.setSupportImageTintList(ColorStateList.valueOf());
+           // lblProjectName.setText();
 
 
 //                    if ( mProjectViewModel.getProjectById(task.getProjectId()) != null) {
@@ -178,11 +194,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 //                        lblProjectName.setText("");
 //
 //                    }
-             }
-
-
-
-
         }
+
+
     }
+
+
+}
 
