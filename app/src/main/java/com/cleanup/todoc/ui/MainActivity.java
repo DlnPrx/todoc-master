@@ -39,17 +39,21 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity implements TasksAdapter.DeleteTaskListener {
 
-    static ProjectViewModel mProjectViewModel;
-    LiveData<List<Task>> mTaskList;
-    ArrayList<Project> mProjectList = new ArrayList<>();
-    private String TAG = "debug123";
+    /**
+     * ViewModel for projects and tasks
+     */
+    private ProjectViewModel mProjectViewModel;
 
-       /**
+    /**
+     * LiveData of all tasks available in the application
+     */
+    LiveData<List<Task>> mTaskList;
+
+
+    /**
      * List of all projects available in the application
      */
-    // private final Project[] allProjects = Project.getAllProjects();
-
-    private Project[] allProjects;
+    ArrayList<Project> mProjectList = new ArrayList<>();
     /**
      * List of all current tasks of the application
      */
@@ -107,17 +111,12 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
 
         setContentView(R.layout.activity_main);
-
+        initViewModel();
         listTasks = findViewById(R.id.list_tasks);
         lblNoTasks = findViewById(R.id.lbl_no_task);
         lblNoTasks.setVisibility(View.GONE);
         listTasks.setVisibility(View.GONE);
-        initViewModel();
-
-        listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new TasksAdapter(tasks, this, mProjectViewModel,mProjectList);
-        listTasks.setAdapter(adapter);
-        mTaskList = mProjectViewModel.getAllTasks();
+        initRecyclerView();
 
 
         mProjectViewModel.getAllTasks().observe(MainActivity.this, new Observer<List<Task>>() {
@@ -182,6 +181,11 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         if (dialogEditText != null && dialogSpinner != null) {
             // Get the name of the task
             String taskName = dialogEditText.getText().toString();
+            char[] arr = taskName.toCharArray();
+            arr[0] = Character.toUpperCase(arr[0]);
+
+            taskName = new String(arr);
+
 
             // Get the selected project to be associated to the task
             Project taskProject = null;
@@ -195,9 +199,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             }
             // If both project and name of the task have been set
             else if (taskProject != null) {
-                // TODO: Replace this by id of persisted task
-                // long id = (long) (Math.random() * 50000);
-
 
                 Task task = new Task(
 
@@ -215,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 dialogInterface.dismiss();
             }
         }
-        // If dialog is aloready closed
+        // If dialog is already closed
         else {
             dialogInterface.dismiss();
         }
@@ -242,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private void addTask(@NonNull Task task) {
         mProjectViewModel.createTask(task);
-          }
+    }
 
     /**
      * Updates the list of tasks in the UI
@@ -347,7 +348,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     }
 
 
-
     /**
      * List of all possible sort methods for task
      */
@@ -385,7 +385,14 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 mProjectList.addAll(projects);
             }
         });
+        mTaskList = mProjectViewModel.getAllTasks();
 
+    }
+
+    private void initRecyclerView() {
+        listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        adapter = new TasksAdapter(tasks, this, mProjectViewModel, mProjectList);
+        listTasks.setAdapter(adapter);
     }
 
 

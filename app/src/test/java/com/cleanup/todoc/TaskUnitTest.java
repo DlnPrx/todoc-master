@@ -31,7 +31,7 @@ public class TaskUnitTest {
 //        assertEquals("Projet Circus", task3.getProject().getName());
 //        assertNull(task4.getProject());
 //    }
-
+//
 //    @Test
 //    public void test_az_comparator() {
 //        final Task task1 = new Task(1, 1, "aaa", 123);
@@ -48,7 +48,7 @@ public class TaskUnitTest {
 //        assertSame(tasks.get(1), task3);
 //        assertSame(tasks.get(2), task2);
 //    }
-
+//
 //    @Test
 //    public void test_za_comparator() {
 //        final Task task1 = new Task(1, 1, "aaa", 123);
@@ -65,7 +65,7 @@ public class TaskUnitTest {
 //        assertSame(tasks.get(1), task3);
 //        assertSame(tasks.get(2), task1);
 //    }
-
+//
 //    @Test
 //    public void test_recent_comparator() {
 //        final Task task1 = new Task(1, 1, "aaa", 123);
@@ -82,7 +82,7 @@ public class TaskUnitTest {
 //        assertSame(tasks.get(1), task2);
 //        assertSame(tasks.get(2), task1);
 //    }
-
+//
 //    @Test
 //    public void test_old_comparator() {
 //        final Task task1 = new Task(1, 1, "aaa", 123);

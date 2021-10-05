@@ -17,14 +17,15 @@ import java.util.concurrent.Executors;
 public class TaskDataRepository {
 
     private TaskDao mTaskDao;
-    private LiveData<List<Task>> mAllTaskss;
+    private LiveData<List<Task>> mAllTasks;
     static final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
+
 
 
     public TaskDataRepository(Application application) {
         TodocDatabase todocDatabase = TodocDatabase.getInstance(application);
         mTaskDao = todocDatabase.taskDao();
-        mAllTaskss = mTaskDao.getAllTasks();
+        mAllTasks = mTaskDao.getAllTasks();
     }
 
     //getAllTasks

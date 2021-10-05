@@ -32,9 +32,6 @@ public class Task {
     /**
      * The name of the task
      */
-    // Suppress warning because setName is called in constructor
-    @SuppressWarnings("NullableProblems")
-    @NonNull
     private String name;
 
     /**
@@ -56,36 +53,66 @@ public class Task {
         this.creationTimestamp = creationTimestamp;
     }
 
+    /**
+     * Returns the unique identifier of the task.
+     *
+     * @return the unique identifier of the task
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Sets the unique identifier of the task.
+     *
+     * @param id the unique idenifier of the task to set
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     * Returns the project associated to the task.
+     *
+     * @return the project associated to the task
+     */
     public long getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(long projectId) {
-        this.projectId = projectId;
-    }
 
-    @NonNull
+    /**
+     * Returns the name of the task.
+     *
+     * @return the name of the task
+     */
     public String getName() {
         return name;
     }
 
-
+    /**
+     * Sets the name of the task.
+     *
+     * @param name the name of the task to set
+     */
     public void setName(@NonNull String name) {
         this.name = name;
     }
 
+    /**
+     * Returns the timestamp when the task has been created.
+     *
+     * @return creationTimestamp the timestamp when the task has been created
+     */
     public long getCreationTimestamp() {
         return creationTimestamp;
     }
 
+    /**
+     * Sets the timestamp when the task has been created.
+     *
+     * @param creationTimestamp the timestamp when the task has been created to set
+     */
     public void setCreationTimestamp(long creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
     }

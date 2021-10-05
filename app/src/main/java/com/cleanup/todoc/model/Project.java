@@ -18,7 +18,7 @@ public class Project {
      * The unique identifier of the project
      */
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = "project_id",index = true)
+    @ColumnInfo(name = "project_id", index = true)
     private long id;
 
     /**
@@ -36,7 +36,6 @@ public class Project {
     /**
      * Instantiates a new Project.
      *
-
      * @param name  the name of the project to set
      * @param color the hex (ARGB) code of the color associated to the project to set
      */
@@ -46,22 +45,35 @@ public class Project {
         this.color = color;
     }
 
-    /**
-     * GETTERS
-     */
 
+    /**
+     * Returns the unique identifier of the project.
+     *
+     * @return the unique identifier of the project
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Returns the name of the project.
+     *
+     * @return the name of the project
+     */
     @NonNull
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the hex (ARGB) code of the color associated to the project.
+     *
+     * @return the hex (ARGB) code of the color associated to the project
+     */
     public int getColor() {
         return color;
     }
+
 
 
     @Override
@@ -70,7 +82,5 @@ public class Project {
         return getName();
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+
 }

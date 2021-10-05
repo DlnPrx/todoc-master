@@ -26,15 +26,8 @@ import java.util.Objects;
  *
  * @author Gaëtan HERFRAY
  */
-public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder>   {
-    @Override
-    public void onViewAttachedToWindow(@NonNull TaskViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
+public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder> {
 
-    }
-
-    private String TAG = "test123";
-    ProjectViewModel mProjectViewModel;
     ArrayList<Project> mProjectList;
 
     /**
@@ -51,14 +44,15 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
     /**
      * Instantiates a new TasksAdapter.
-     *  @param tasks             the list of tasks the adapter deals with to set
+     *
+     * @param tasks             the list of tasks the adapter deals with to set
      * @param mProjectViewModel
      * @param mProjectList
      */
     TasksAdapter(@NonNull final List<Task> tasks, @NonNull final DeleteTaskListener deleteTaskListener, @NonNull ProjectViewModel mProjectViewModel, ArrayList<Project> mProjectList) {
         this.tasks = tasks;
         this.deleteTaskListener = deleteTaskListener;
-       // this.mProjectViewModel = mProjectViewModel;
+        // this.mProjectViewModel = mProjectViewModel;
         this.mProjectList = mProjectList;
     }
 
@@ -171,29 +165,21 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
          *
          * @param task the task to bind in the item view
          */
-        //TODO
+
         public void bind(Task task) {
+            Project taskProject = mProjectList.get((int) task.getProjectId());
 
 
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
-            int index = (int) task.getProjectId();
-            imgProject.setSupportImageTintList(ColorStateList.valueOf(mProjectList.get(index).getColor()));
-            // lblProjectName.setText();
 
-             //imgProject.setSupportImageTintList(ColorStateList.valueOf());
-           // lblProjectName.setText();
-
-
-//                    if ( mProjectViewModel.getProjectById(task.getProjectId()) != null) {
-//                        imgProject.setSupportImageTintList(ColorStateList.valueOf(mProjectViewModel.getProjectById(task.getProjectId()).getColor()));
-//                        lblProjectName.setText(mProjectViewModel.getProjectById(task.getProjectId()).getName());
-//
-//                    } else {
-//                        imgProject.setVisibility(View.INVISIBLE);
-//                        lblProjectName.setText("");
-//
-//                    }
+            if (taskProject != null) {
+                imgProject.setSupportImageTintList(ColorStateList.valueOf(taskProject.getColor()));
+                lblProjectName.setText(taskProject.getName());
+            } else {
+                imgProject.setVisibility(View.INVISIBLE);
+                lblProjectName.setText("");
+            }
         }
 
 
