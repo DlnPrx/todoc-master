@@ -17,7 +17,7 @@ public class Project {
     /**
      * The unique identifier of the project
      */
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "project_id", index = true)
     private long id;
 

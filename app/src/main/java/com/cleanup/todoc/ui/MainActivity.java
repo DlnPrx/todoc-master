@@ -181,10 +181,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         if (dialogEditText != null && dialogSpinner != null) {
             // Get the name of the task
             String taskName = dialogEditText.getText().toString();
-            char[] arr = taskName.toCharArray();
-            arr[0] = Character.toUpperCase(arr[0]);
 
-            taskName = new String(arr);
 
 
             // Get the selected project to be associated to the task
@@ -199,6 +196,10 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             }
             // If both project and name of the task have been set
             else if (taskProject != null) {
+                //upper first case letter
+                char[] newName = taskName.toCharArray();
+                newName[0] = Character.toUpperCase(newName[0]);
+                taskName = new String(newName);
 
                 Task task = new Task(
 
@@ -323,7 +324,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 });
             }
         });
-
         return dialog;
     }
 
@@ -343,10 +343,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 }
             }
         });
-
-
     }
-
 
     /**
      * List of all possible sort methods for task
@@ -391,7 +388,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     private void initRecyclerView() {
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new TasksAdapter(tasks, this, mProjectViewModel, mProjectList);
+        adapter = new TasksAdapter(tasks, this, mProjectList);
         listTasks.setAdapter(adapter);
     }
 

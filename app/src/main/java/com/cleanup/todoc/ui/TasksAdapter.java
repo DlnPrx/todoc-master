@@ -45,14 +45,13 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
     /**
      * Instantiates a new TasksAdapter.
      *
-     * @param tasks             the list of tasks the adapter deals with to set
-     * @param mProjectViewModel
-     * @param mProjectList
+     * @param tasks  the list of tasks the adapter deals with to set
+
+     * @param mProjectList the project list
      */
-    TasksAdapter(@NonNull final List<Task> tasks, @NonNull final DeleteTaskListener deleteTaskListener, @NonNull ProjectViewModel mProjectViewModel, ArrayList<Project> mProjectList) {
+    TasksAdapter(@NonNull final List<Task> tasks, @NonNull final DeleteTaskListener deleteTaskListener, ArrayList<Project> mProjectList) {
         this.tasks = tasks;
         this.deleteTaskListener = deleteTaskListener;
-        // this.mProjectViewModel = mProjectViewModel;
         this.mProjectList = mProjectList;
     }
 
@@ -167,11 +166,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
          */
 
         public void bind(Task task) {
-            Project taskProject = mProjectList.get((int) task.getProjectId());
-
-
+            int projectId = (int) task.getProjectId();
+            Project taskProject = mProjectList.get(projectId);
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
+
 
             if (taskProject != null) {
                 imgProject.setSupportImageTintList(ColorStateList.valueOf(taskProject.getColor()));

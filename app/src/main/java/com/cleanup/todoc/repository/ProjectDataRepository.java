@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 
 public class ProjectDataRepository {
 
-    private ProjectDao mProjectDao;
+    private final ProjectDao mProjectDao;
     private LiveData<List<Project>> mAllProjects;
 
     static final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
