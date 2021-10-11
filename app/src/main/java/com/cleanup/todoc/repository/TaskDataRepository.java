@@ -4,10 +4,8 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.cleanup.todoc.dao.ProjectDao;
 import com.cleanup.todoc.dao.TaskDao;
 import com.cleanup.todoc.database.TodocDatabase;
-import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 
 import java.util.List;
@@ -16,16 +14,15 @@ import java.util.concurrent.Executors;
 
 public class TaskDataRepository {
 
-    private TaskDao mTaskDao;
-    private LiveData<List<Task>> mAllTasks;
-    static final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
+    private final TaskDao mTaskDao;
 
+    static final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
 
 
     public TaskDataRepository(Application application) {
         TodocDatabase todocDatabase = TodocDatabase.getInstance(application);
         mTaskDao = todocDatabase.taskDao();
-        mAllTasks = mTaskDao.getAllTasks();
+
     }
 
     //getAllTasks
@@ -35,33 +32,21 @@ public class TaskDataRepository {
 
 
     //create
-    public void createTask(Task task) {databaseWriteExecutor.execute(new Runnable() {
-        @Override
-        public void run() {
-            mTaskDao.insertTask(task);
-        }
-    });
+    public void createTask(Task task) {
+        databaseWriteExecutor.execute(() -> mTaskDao.insertTask(task));
 
 
     }
 
     //delete
-    public void deleteTask(Task task) {databaseWriteExecutor.execute(new Runnable() {
-        @Override
-        public void run() {
-            mTaskDao.deleteTask(task);
-        }
-    });
+    public void deleteTask(Task task) {
+        databaseWriteExecutor.execute(() -> mTaskDao.deleteTask(task));
 
     }
 
     //update
-    public void updateTask(Task task) {databaseWriteExecutor.execute(new Runnable() {
-        @Override
-        public void run() {
-            mTaskDao.updateTask(task);
-        }
-    });
+    public void updateTask(Task task) {
+        databaseWriteExecutor.execute(() -> mTaskDao.updateTask(task));
 
     }
 

@@ -44,21 +44,17 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private ProjectViewModel mProjectViewModel;
 
-    /**
-     * LiveData of all tasks available in the application
-     */
-    LiveData<List<Task>> mTaskList;
-
 
     /**
      * List of all projects available in the application
      */
-    ArrayList<Project> mProjectList = new ArrayList<>();
+    @NonNull
+    private List<Project> mProjects = new ArrayList<>();
     /**
      * List of all current tasks of the application
      */
     @NonNull
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private List<Task> mTasks = new ArrayList<>();
 
     /**
      * The adapter which handles the list of tasks
@@ -92,50 +88,23 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     /**
      * The RecyclerView which displays the list of tasks
      */
-    // Suppress warning is safe because variable is initialized in onCreate
-    @SuppressWarnings("NullableProblems")
-    @NonNull
+
     private RecyclerView listTasks;
 
     /**
      * The TextView displaying the empty state
      */
-    // Suppress warning is safe because variable is initialized in onCreate
-    @SuppressWarnings("NullableProblems")
-    @NonNull
+
     private TextView lblNoTasks;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_main);
         initViewModel();
-        listTasks = findViewById(R.id.list_tasks);
-        lblNoTasks = findViewById(R.id.lbl_no_task);
-        lblNoTasks.setVisibility(View.GONE);
-        listTasks.setVisibility(View.GONE);
+        setupFabAndTaskView();
         initRecyclerView();
-
-
-        mProjectViewModel.getAllTasks().observe(MainActivity.this, new Observer<List<Task>>() {
-            @Override
-            public void onChanged(List<Task> tasks) {
-
-                adapter.setTasks(tasks);
-
-            }
-        });
-
-
-        findViewById(R.id.fab_add_task).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAddTaskDialog();
-            }
-        });
-
 
     }
 
@@ -181,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         if (dialogEditText != null && dialogSpinner != null) {
             // Get the name of the task
             String taskName = dialogEditText.getText().toString();
-
 
 
             // Get the selected project to be associated to the task
@@ -251,34 +219,32 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private void updateTasks() {
 
-        mProjectViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
-            @Override
-            public void onChanged(List<Task> tasks) {
-                if (tasks.size() == 0) {
-                    lblNoTasks.setVisibility(View.VISIBLE);
-                    listTasks.setVisibility(View.GONE);
+        mProjectViewModel.getAllTasks().observe(this, tasks -> {
+            if (tasks.size() == 0) {
+                lblNoTasks.setVisibility(View.VISIBLE);
+                listTasks.setVisibility(View.GONE);
 
-                } else {
-                    lblNoTasks.setVisibility(View.GONE);
-                    listTasks.setVisibility(View.VISIBLE);
-                    switch (sortMethod) {
-                        case ALPHABETICAL:
-                            Collections.sort(tasks, new Task.TaskAZComparator());
-                            break;
-                        case ALPHABETICAL_INVERTED:
-                            Collections.sort(tasks, new Task.TaskZAComparator());
-                            break;
-                        case RECENT_FIRST:
-                            Collections.sort(tasks, new Task.TaskRecentComparator());
-                            break;
-                        case OLD_FIRST:
-                            Collections.sort(tasks, new Task.TaskOldComparator());
-                            break;
+            } else {
+                lblNoTasks.setVisibility(View.GONE);
+                listTasks.setVisibility(View.VISIBLE);
+                switch (sortMethod) {
+                    case ALPHABETICAL:
+                        Collections.sort(tasks, new Task.TaskAZComparator());
+                        break;
+                    case ALPHABETICAL_INVERTED:
+                        Collections.sort(tasks, new Task.TaskZAComparator());
+                        break;
+                    case RECENT_FIRST:
+                        Collections.sort(tasks, new Task.TaskRecentComparator());
+                        break;
+                    case OLD_FIRST:
+                        Collections.sort(tasks, new Task.TaskOldComparator());
+                        break;
 
-                    }
-                    adapter.updateTasks(tasks);
                 }
+
             }
+            adapter.updateTasks(tasks);
         });
 
 
@@ -297,32 +263,19 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         alertBuilder.setTitle(R.string.add_task);
         alertBuilder.setView(R.layout.dialog_add_task);
         alertBuilder.setPositiveButton(R.string.add, null);
-        alertBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                dialogEditText = null;
-                dialogSpinner = null;
-                dialog = null;
-            }
+        alertBuilder.setOnDismissListener(dialogInterface -> {
+            dialogEditText = null;
+            dialogSpinner = null;
+            dialog = null;
         });
 
         dialog = alertBuilder.create();
 
         // This instead of listener to positive button in order to avoid automatic dismiss
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        dialog.setOnShowListener(dialogInterface -> {
 
-            @Override
-            public void onShow(DialogInterface dialogInterface) {
-
-                Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                button.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        onPositiveButtonClick(dialog);
-                    }
-                });
-            }
+            Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            button.setOnClickListener(view -> onPositiveButtonClick(dialog));
         });
         return dialog;
     }
@@ -332,15 +285,12 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private void populateDialogSpinner() {
 
-        mProjectViewModel.getAllProjects().observe(this, new Observer<List<Project>>() {
-            @Override
-            public void onChanged(List<Project> projects) {
+        mProjectViewModel.getAllProjects().observe(this, projects -> {
 
-                ArrayAdapter<Project> adapter = new ArrayAdapter<Project>(getApplicationContext(), android.R.layout.simple_spinner_item, projects);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                if (dialogSpinner != null) {
-                    dialogSpinner.setAdapter(adapter);
-                }
+            ArrayAdapter<Project> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, projects);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            if (dialogSpinner != null) {
+                dialogSpinner.setAdapter(adapter);
             }
         });
     }
@@ -374,22 +324,37 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     private void initViewModel() {
 
         mProjectViewModel = new ViewModelProvider(this).get(ProjectViewModel.class);
-        updateTasks();
-        mProjectViewModel.getAllProjects().observeForever(new Observer<List<Project>>() {
+
+
+        mProjectViewModel.getAllTasks().observe(MainActivity.this, new Observer<List<Task>>() {
             @Override
-            public void onChanged(List<Project> projects) {
-                mProjectList.clear();
-                mProjectList.addAll(projects);
+            public void onChanged(List<Task> tasks) {
+                adapter.setTasks(tasks);
+                mTasks = tasks;
             }
         });
-        mTaskList = mProjectViewModel.getAllTasks();
-
+        mProjectViewModel.getAllProjects().observe(MainActivity.this, new Observer<List<Project>>() {
+            @Override
+            public void onChanged(List<Project> projects) {
+                adapter.setProjects(projects);
+                mProjects = projects;
+            }
+        });
+        updateTasks();
     }
 
     private void initRecyclerView() {
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new TasksAdapter(tasks, this, mProjectList);
+        adapter = new TasksAdapter(mTasks, this, mProjects);
         listTasks.setAdapter(adapter);
+    }
+
+    private void setupFabAndTaskView() {
+        listTasks = findViewById(R.id.list_tasks);
+        lblNoTasks = findViewById(R.id.lbl_no_task);
+        findViewById(R.id.fab_add_task).setOnClickListener(view -> showAddTaskDialog());
+        lblNoTasks.setVisibility(View.GONE);
+        listTasks.setVisibility(View.GONE);
     }
 
 

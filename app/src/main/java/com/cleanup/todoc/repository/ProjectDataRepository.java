@@ -15,15 +15,12 @@ import java.util.concurrent.Executors;
 public class ProjectDataRepository {
 
     private final ProjectDao mProjectDao;
-    private LiveData<List<Project>> mAllProjects;
-
-    static final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
-    Project project;
+   private static final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
 
     public ProjectDataRepository(Application application) {
         TodocDatabase todocDatabase = TodocDatabase.getInstance(application);
         mProjectDao = todocDatabase.projectDao();
-        mAllProjects = mProjectDao.getAllProjects();
+
     }
 
     //GET ALL PROJECTS
@@ -32,44 +29,28 @@ public class ProjectDataRepository {
     }
 
     //GET PROJECT BY ID
-
     public LiveData<Project> getProjectById(long projectId) {
-            return mProjectDao.getProjectById(projectId);
+        return mProjectDao.getProjectById(projectId);
     }
 
 
     //CREATE
     public void createProject(Project project) {
-        databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mProjectDao.insertProject(project);
-            }
-        });
+        databaseWriteExecutor.execute(() -> mProjectDao.insertProject(project));
 
 
     }
 
     //DELETE
     public void deleteProject(Project project) {
-        databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mProjectDao.deleteProject(project);
-            }
-        });
+        databaseWriteExecutor.execute(() -> mProjectDao.deleteProject(project));
 
 
     }
 
     //UPDATE
     public void updateProject(Project project) {
-        databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mProjectDao.updateProject(project);
-            }
-        });
+        databaseWriteExecutor.execute(() -> mProjectDao.updateProject(project));
 
 
     }
