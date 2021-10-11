@@ -12,6 +12,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.cleanup.todoc.database.TodocDatabase;
 import com.cleanup.todoc.model.Project;
+import com.cleanup.todoc.model.Task;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -24,18 +25,13 @@ import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class TaskDaoTest {
-    private static String TAG ="debug123";
-
 
     //database
     private TodocDatabase mDatabase;
     //DATA
-    private static final long PROJECT_ID = 1;
-    private static final String PROJECT_NAME = "Project name test";
-    private static final int PROJECT_COLOR = Color.rgb(100,0,0);
-    private static final Project PROJECT_DEMO = new Project(PROJECT_ID, PROJECT_NAME,PROJECT_COLOR);
 
-
+   // private static final String TASK_NAME = "Task name test";
+    //private static final Project TASK_DEMO = new Task(TASK_NAME,);
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -55,16 +51,21 @@ public class TaskDaoTest {
     }
 
     @Test
-    public void insertAndGetProject() throws InterruptedException {
-        // BEFORE : Adding a new project
-        List<Project> projectList = LiveDataTestUtil.getValue(mDatabase.projectDao().getAllProjects());
-        mDatabase.projectDao().insertProject(PROJECT_DEMO);
-       
-      //   TEST
-      LiveData<Project> project = (mDatabase.projectDao().getProjectById(PROJECT_ID));
-        Assert.assertNotNull(project);
-        assertTrue(LiveDataTestUtil.getValue(project).getName().equals(PROJECT_DEMO.getName()) && LiveDataTestUtil.getValue(project).getId() == PROJECT_ID);
+    public void insertGetAndDeleteProject() throws InterruptedException {
+        // Adding a new project
 
+//        mDatabase.projectDao().insertProject(PROJECT_DEMO);
+//        List<Project> projectList = LiveDataTestUtil.getValue(mDatabase.projectDao().getAllProjects());
+//        Assert.assertEquals(1, projectList.size());
+//
+//        // Get project
+//        LiveData<Project> project = (mDatabase.projectDao().getProjectById(PROJECT_ID));
+//        Assert.assertNotNull(project);
+//        assertTrue(LiveDataTestUtil.getValue(project).getName().equals(PROJECT_DEMO.getName()) && LiveDataTestUtil.getValue(project).getId() == PROJECT_ID);
+//
+//        //Delete project
+//        mDatabase.projectDao().deleteProject(PROJECT_DEMO);
+//        projectList = LiveDataTestUtil.getValue(mDatabase.projectDao().getAllProjects());
+//        Assert.assertEquals(0, projectList.size());
     }
-
 }
