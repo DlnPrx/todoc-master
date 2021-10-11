@@ -51,8 +51,14 @@ public class TaskDaoTest {
     }
 
     @Test
+    public void testInitDatabase() {
+
+        Assert.assertNotNull(this.mDatabase);
+
+    }
+    @Test
     public void insertGetAndDeleteProject() throws InterruptedException {
-        // Adding a new project
+        // Adding a new task
 
 //        mDatabase.projectDao().insertProject(PROJECT_DEMO);
 //        List<Project> projectList = LiveDataTestUtil.getValue(mDatabase.projectDao().getAllProjects());

@@ -331,6 +331,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             public void onChanged(List<Task> tasks) {
                 adapter.setTasks(tasks);
                 mTasks = tasks;
+                updateTasks();
             }
         });
         mProjectViewModel.getAllProjects().observe(MainActivity.this, new Observer<List<Project>>() {
@@ -338,15 +339,18 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             public void onChanged(List<Project> projects) {
                 adapter.setProjects(projects);
                 mProjects = projects;
+                updateTasks();
             }
         });
-        updateTasks();
+
     }
 
     private void initRecyclerView() {
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapter = new TasksAdapter(mTasks, this, mProjects);
         listTasks.setAdapter(adapter);
+
+
     }
 
     private void setupFabAndTaskView() {

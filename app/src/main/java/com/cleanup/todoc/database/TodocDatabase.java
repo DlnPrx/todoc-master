@@ -10,13 +10,10 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
 import com.cleanup.todoc.dao.ProjectDao;
 import com.cleanup.todoc.dao.TaskDao;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
-
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -50,7 +47,6 @@ public abstract class TodocDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
-
             ContentValues contentValuesProject1 = new ContentValues();
             contentValuesProject1.put("project_id", 0);
             contentValuesProject1.put("name", "Projet Tartampion");
@@ -67,22 +63,30 @@ public abstract class TodocDatabase extends RoomDatabase {
             contentValuesProject3.put("color", 0xFFA3CED2);
 
             ContentValues contentValuesTask1 = new ContentValues();
-            contentValuesTask1.put("task_id", 1);
-            contentValuesTask1.put("name", "Nettoyer les vitres");
+            contentValuesTask1.put("name", "Ajouter un header sur le site");
             contentValuesTask1.put("projectId", 0);
             contentValuesTask1.put("creationTimestamp", 1000);
 
             ContentValues contentValuesTask2 = new ContentValues();
-            contentValuesTask2.put("task_id", 2);
-            contentValuesTask2.put("name", "Vider le lave vaisselle");
+            contentValuesTask2.put("name", "Modifier la couleur des textes");
             contentValuesTask2.put("projectId", 1);
             contentValuesTask2.put("creationTimestamp", 1001);
 
             ContentValues contentValuesTask3 = new ContentValues();
-            contentValuesTask3.put("task_id", 3);
-            contentValuesTask3.put("name", "Arroser les plantes");
-            contentValuesTask3.put("projectId", 2);
+            contentValuesTask3.put("name", "Appeler le client");
+            contentValuesTask3.put("projectId", 1);
             contentValuesTask3.put("creationTimestamp", 1002);
+
+            ContentValues contentValuesTask4 = new ContentValues();
+            contentValuesTask4.put("name", "Intégrer Google Analytics");
+            contentValuesTask4.put("projectId", 0);
+            contentValuesTask4.put("creationTimestamp", 1003);
+
+            ContentValues contentValuesTask5 = new ContentValues();
+            contentValuesTask5.put("name", "Ajouter un header sur le site");
+            contentValuesTask5.put("projectId", 2);
+            contentValuesTask5.put("creationTimestamp", 1004);
+
 
             databaseWriteExecutor.execute(() -> {
                 db.insert("project_table", OnConflictStrategy.IGNORE, contentValuesProject1);
@@ -90,7 +94,10 @@ public abstract class TodocDatabase extends RoomDatabase {
                 db.insert("project_table", OnConflictStrategy.IGNORE, contentValuesProject3);
                 db.insert("task_table", OnConflictStrategy.IGNORE, contentValuesTask1);
                 db.insert("task_table", OnConflictStrategy.IGNORE, contentValuesTask2);
-                db.insert("task_table", OnConflictStrategy.IGNORE, contentValuesTask3);
+                db.insert("task_table",OnConflictStrategy.IGNORE , contentValuesTask3);
+                db.insert("task_table", OnConflictStrategy.IGNORE, contentValuesTask4);
+                db.insert("task_table", OnConflictStrategy.IGNORE, contentValuesTask5);
+
             });
 
 
