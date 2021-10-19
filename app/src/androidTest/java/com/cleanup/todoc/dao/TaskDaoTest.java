@@ -1,9 +1,5 @@
 package com.cleanup.todoc.dao;
 
-import static org.junit.Assert.assertTrue;
-
-import android.util.Log;
-
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.room.Room;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -29,18 +25,18 @@ public class TaskDaoTest {
     private TodocDatabase mDatabase;
 
     //DATA
-    private static long PROJECT_ID = 0;
-    private static Project PROJECT_DEMO = new Project(PROJECT_ID, "Project One", 0xFFEADAD1);
-    private static String TASK_NAME = "Task name test";
+    private static final long PROJECT_ID = 0;
+    private static final Project PROJECT_DEMO = new Project(PROJECT_ID, "Project One", 0xFFEADAD1);
+    private static final String TASK_NAME = "Task name test";
 
-    private static long TIMESTAMP = 1001;
+    private static final long TIMESTAMP = 1001;
     private static final Task TASK_DEMO = new Task(PROJECT_ID, TASK_NAME, TIMESTAMP);
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Before
-    public void initDb() throws Exception {
+    public void initDb() {
         mDatabase = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().getContext(),
                 TodocDatabase.class)
                 .allowMainThreadQueries()
@@ -49,7 +45,7 @@ public class TaskDaoTest {
     }
 
     @After
-    public void closeDb() throws Exception {
+    public void closeDb() {
         mDatabase.close();
 
     }
