@@ -16,9 +16,8 @@ public class ProjectViewModel extends AndroidViewModel {
     //----------
     //REPOSITORIES
     //----------
-    private ProjectDataRepository mProjectDataRepository;
-    private TaskDataRepository mTaskDataRepository;
-
+    private final ProjectDataRepository mProjectDataRepository;
+    private final TaskDataRepository mTaskDataRepository;
 
 
     //----------
@@ -32,6 +31,7 @@ public class ProjectViewModel extends AndroidViewModel {
         mProjectDataRepository = new ProjectDataRepository(application);
         mTaskDataRepository = new TaskDataRepository(application);
     }
+
     //----------
     // PROJECTS
     //----------
@@ -42,7 +42,6 @@ public class ProjectViewModel extends AndroidViewModel {
 
     public void createProject(Project project) {
         mProjectDataRepository.createProject(project);
-
     }
 
     public void deleteProject(Project project) {
@@ -51,8 +50,6 @@ public class ProjectViewModel extends AndroidViewModel {
 
 
     public void updateProject(Project project) {
-
-
         mProjectDataRepository.updateProject(project);
 
     }
@@ -60,7 +57,6 @@ public class ProjectViewModel extends AndroidViewModel {
     public LiveData<Project> getProjectById(long projectId) {
         return mProjectDataRepository.getProjectById(projectId);
     }
-
 
 
     //----------

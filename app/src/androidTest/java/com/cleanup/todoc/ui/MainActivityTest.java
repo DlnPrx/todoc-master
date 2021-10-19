@@ -1,21 +1,14 @@
 package com.cleanup.todoc.ui;
 
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
-import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -23,21 +16,18 @@ import android.view.ViewParent;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.room.Room;
 import androidx.test.espresso.ViewInteraction;
-
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
-
 
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.database.TodocDatabase;
-import com.cleanup.todoc.model.Project;
+import com.cleanup.todoc.ui.MainActivity;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -80,5 +70,5 @@ public class MainActivityTest {
 
     }
 
-
+ 
 }

@@ -25,29 +25,25 @@ public class TaskDataRepository {
 
     }
 
-    //getAllTasks
+    //GET ALL TASKS
     public LiveData<List<Task>> getAllTasks() {
         return mTaskDao.getAllTasks();
     }
 
 
-    //create
+    //CREATE
     public void createTask(Task task) {
         databaseWriteExecutor.execute(() -> mTaskDao.insertTask(task));
-
-
     }
 
-    //delete
+    //DELETE
     public void deleteTask(Task task) {
         databaseWriteExecutor.execute(() -> mTaskDao.deleteTask(task));
-
     }
 
-    //update
+    //UPDATE
     public void updateTask(Task task) {
         databaseWriteExecutor.execute(() -> mTaskDao.updateTask(task));
-
     }
 
 

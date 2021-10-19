@@ -8,19 +8,20 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * <p>Model for the tasks of the application.</p>
  *
  * @author Gaëtan HERFRAY
  */
-@Entity(tableName = "task_table",foreignKeys = @ForeignKey(entity = Project.class,parentColumns = "project_id",childColumns = "projectId"))
+@Entity(tableName = "task_table", foreignKeys = @ForeignKey(entity = Project.class, parentColumns = "project_id", childColumns = "projectId"))
 public class Task {
     /**
      * The unique identifier of the task
      */
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "task_id",index = true)
+    @ColumnInfo(name = "task_id", index = true)
     private long id;
 
     /**
@@ -41,15 +42,17 @@ public class Task {
 
     /**
      * Instantiates a new Task.
+     *
      * @param projectId         the unique identifier of the project associated to the task to set
      * @param name              the name of the task to set
      * @param creationTimestamp the timestamp when the task has been created to set
      */
-    public Task(long projectId,  String name, long creationTimestamp) {
+    public Task(long projectId, String name, long creationTimestamp) {
         this.projectId = projectId;
         this.name = name;
         this.creationTimestamp = creationTimestamp;
     }
+
 
     /**
      * Returns the unique identifier of the task.
@@ -63,7 +66,7 @@ public class Task {
     /**
      * Sets the unique identifier of the task.
      *
-     * @param id the unique idenifier of the task to set
+     * @param id the unique identifier of the task to set
      */
     public void setId(long id) {
         this.id = id;
@@ -145,6 +148,5 @@ public class Task {
             return (int) (left.creationTimestamp - right.creationTimestamp);
         }
     }
-
 
 }

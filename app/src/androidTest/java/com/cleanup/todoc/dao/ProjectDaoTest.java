@@ -1,4 +1,4 @@
-package com.cleanup.todoc;
+package com.cleanup.todoc.dao;
 
 import static org.junit.Assert.assertTrue;
 
@@ -8,7 +8,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.cleanup.todoc.database.TodocDatabase;
@@ -32,8 +31,8 @@ public class ProjectDaoTest {
     //DATA
     private static final long PROJECT_ID = 1;
     private static final String PROJECT_NAME = "Project name test";
-    private static final int PROJECT_COLOR = Color.rgb(100,0,0);
-    private static final Project PROJECT_DEMO = new Project(PROJECT_ID, PROJECT_NAME,PROJECT_COLOR);
+    private static final int PROJECT_COLOR = Color.rgb(100, 0, 0);
+    private static final Project PROJECT_DEMO = new Project(PROJECT_ID, PROJECT_NAME, PROJECT_COLOR);
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -60,6 +59,7 @@ public class ProjectDaoTest {
         Assert.assertNotNull(this.mDatabase);
 
     }
+
     @Test
     public void insertGetAndDeleteProject() throws InterruptedException {
         // Adding a new project

@@ -17,14 +17,14 @@ public class Project {
     /**
      * The unique identifier of the project
      */
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey()
     @ColumnInfo(name = "project_id", index = true)
     private final long id;
 
     /**
      * The name of the project
      */
-     private final String name;
+    private final String name;
 
     /**
      * The hex (ARGB) code of the color associated to the project
@@ -38,7 +38,7 @@ public class Project {
      * @param name  the name of the project to set
      * @param color the hex (ARGB) code of the color associated to the project to set
      */
-    public Project(long id,String name, int color) {
+    public Project(long id, String name, int color) {
         this.id = id;
         this.name = name;
         this.color = color;
@@ -72,7 +72,6 @@ public class Project {
     public int getColor() {
         return color;
     }
-
 
 
     @Override

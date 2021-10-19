@@ -17,4 +17,5 @@
     <string name="wash_the_windows">Nettoyer les vitres</string>
     <string name="empty_the_dishwasher">Vider le lave vaisselle</string>
     <string name="water_the_plants">Arroser les plantes</string>
+    <string name="ajouter_un_header_sur_le_site">Ajouter un header sur le site</string>
 </resources>

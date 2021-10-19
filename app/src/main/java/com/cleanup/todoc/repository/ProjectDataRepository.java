@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 public class ProjectDataRepository {
 
     private final ProjectDao mProjectDao;
-   private static final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
+    private static final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
 
     public ProjectDataRepository(Application application) {
         TodocDatabase todocDatabase = TodocDatabase.getInstance(application);
@@ -33,26 +33,19 @@ public class ProjectDataRepository {
         return mProjectDao.getProjectById(projectId);
     }
 
-
     //CREATE
     public void createProject(Project project) {
         databaseWriteExecutor.execute(() -> mProjectDao.insertProject(project));
-
-
     }
 
     //DELETE
     public void deleteProject(Project project) {
         databaseWriteExecutor.execute(() -> mProjectDao.deleteProject(project));
-
-
     }
 
     //UPDATE
     public void updateProject(Project project) {
         databaseWriteExecutor.execute(() -> mProjectDao.updateProject(project));
-
-
     }
 
 }

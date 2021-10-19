@@ -76,7 +76,7 @@ public class TaskUnitTest {
     public void test_old_comparator() {
         final Task task1 = new Task( 1, "aaa", 123);
         final Task task2 = new Task(2, "zzz", 124);
-        final Task task3 = new Task( 3, "hhh", 125);
+        final Task task3 = new Task(3, "hhh", 125);
 
         final ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(task1);
