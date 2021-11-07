@@ -14,7 +14,6 @@ import com.cleanup.todoc.viewmodels.ProjectViewModel;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +25,6 @@ public class ProjectViewModelTest {
 
     ProjectViewModel mProjectViewModel;
     TodocDatabase mDatabase;
-    Project mProjectTest;
     Task mTaskTest;
     Task mTaskTest2;
     List<Task> mTaskArrayList;
@@ -36,11 +34,6 @@ public class ProjectViewModelTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        //  ApplicationProvider.getApplicationContext().deleteDatabase("todoc_database");
-
-    }
 
     @Before
     public void setUp() throws InterruptedException {
@@ -73,7 +66,7 @@ public class ProjectViewModelTest {
 
 
     @Test
-    public void getAllTasks() throws InterruptedException {
+    public void getAllTasks()  {
 
 
         Assert.assertEquals(5, mTaskArrayList.size());

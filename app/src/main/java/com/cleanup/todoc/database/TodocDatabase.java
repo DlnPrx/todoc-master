@@ -66,27 +66,27 @@ public abstract class TodocDatabase extends RoomDatabase {
             ContentValues contentValuesTask1 = new ContentValues();
             contentValuesTask1.put("name", "Ajouter un header sur le site");
             contentValuesTask1.put("projectId", 0);
-            contentValuesTask1.put("creationTimestamp", 1000);
+            contentValuesTask1.put("creationTimestamp", 0);
 
             ContentValues contentValuesTask2 = new ContentValues();
             contentValuesTask2.put("name", "Modifier la couleur des textes");
             contentValuesTask2.put("projectId", 1);
-            contentValuesTask2.put("creationTimestamp", 1001);
+            contentValuesTask2.put("creationTimestamp", 1);
 
             ContentValues contentValuesTask3 = new ContentValues();
             contentValuesTask3.put("name", "Appeler le client");
             contentValuesTask3.put("projectId", 1);
-            contentValuesTask3.put("creationTimestamp", 1002);
+            contentValuesTask3.put("creationTimestamp", 2);
 
             ContentValues contentValuesTask4 = new ContentValues();
             contentValuesTask4.put("name", "Intégrer Google Analytics");
             contentValuesTask4.put("projectId", 0);
-            contentValuesTask4.put("creationTimestamp", 1003);
+            contentValuesTask4.put("creationTimestamp", 3);
 
             ContentValues contentValuesTask5 = new ContentValues();
             contentValuesTask5.put("name", "Ajouter un header sur le site");
             contentValuesTask5.put("projectId", 2);
-            contentValuesTask5.put("creationTimestamp", 1004);
+            contentValuesTask5.put("creationTimestamp", 4);
 
 
             databaseWriteExecutor.execute(() -> {

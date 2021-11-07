@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -24,12 +24,12 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import com.cleanup.todoc.R;
-import com.cleanup.todoc.database.TodocDatabase;
+
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.Before;
+
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,30 +41,16 @@ import org.junit.runner.RunWith;
 public class MainActivityTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
-/*    @Rule
-    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();*/
+
 
     @BeforeClass
-    public static void beforeClass() throws Exception {
-      //  TodocDatabase.getInstance(ApplicationProvider.getApplicationContext()).clearAllTables();
+    public static void beforeClass()  {
+
         ApplicationProvider.getApplicationContext().deleteDatabase("todoc_database");
 
     }
 
-    @Before
-    public void setUp() throws Exception {
-       // ApplicationProvider.getApplicationContext().deleteDatabase("todoc_database");
-       // Thread.sleep(1000);
 
-    }
-/*
-    @Test
-    public void TaskListIsDisplay() {
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.list_tasks),
-                        isDisplayed()));
-
-    }*/
 
     @Test
     public void AddAndDeleteTaskWithSuccess()  {
@@ -92,7 +78,6 @@ public class MainActivityTest {
 
         textView.check(matches(withText("Test")));
 
-        ViewInteraction newTestTask = onView(withId(R.id.list_tasks));
 
 
         ViewInteraction appCompatImageView = onView(

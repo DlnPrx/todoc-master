@@ -158,6 +158,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
                     TaskViewHolder.this.deleteTaskListener.onDeleteTask((Task) tag);
                 }
             });
+
+
         }
 
         /**
@@ -169,7 +171,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         public void bind(Task task) {
 
             Project taskProject = mProjectList.get((int) task.getProjectId());
-
+            
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
 
