@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
-import com.cleanup.todoc.viewmodel.ProjectViewModel;
+import com.cleanup.todoc.viewmodels.ProjectViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * @param task the task to be added to the list
      */
     private void addTask(@NonNull Task task) {
-        mProjectViewModel.createTask(task);
+        mProjectViewModel.insertTask(task);
     }
 
     /**

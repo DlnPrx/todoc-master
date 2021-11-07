@@ -3,21 +3,22 @@ package com.cleanup.todoc.database;
 import android.content.ContentValues;
 import android.content.Context;
 
-
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
 import com.cleanup.todoc.dao.ProjectDao;
 import com.cleanup.todoc.dao.TaskDao;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Project.class, Task.class},version = 1,exportSchema = false)
+@Database(entities = {Project.class, Task.class}, version = 1, exportSchema = false)
 public abstract class TodocDatabase extends RoomDatabase {
 
 
@@ -29,11 +30,11 @@ public abstract class TodocDatabase extends RoomDatabase {
     public abstract TaskDao taskDao();
 
 
-    public static synchronized TodocDatabase getInstance(Context context){
+    public static synchronized TodocDatabase getInstance(Context context) {
 
-        if (instance == null){
+        if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    TodocDatabase.class,"todoc_database")
+                    TodocDatabase.class, "todoc_database")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
@@ -94,7 +95,7 @@ public abstract class TodocDatabase extends RoomDatabase {
                 db.insert("project_table", OnConflictStrategy.IGNORE, contentValuesProject3);
                 db.insert("task_table", OnConflictStrategy.IGNORE, contentValuesTask1);
                 db.insert("task_table", OnConflictStrategy.IGNORE, contentValuesTask2);
-                db.insert("task_table",OnConflictStrategy.IGNORE , contentValuesTask3);
+                db.insert("task_table", OnConflictStrategy.IGNORE, contentValuesTask3);
                 db.insert("task_table", OnConflictStrategy.IGNORE, contentValuesTask4);
                 db.insert("task_table", OnConflictStrategy.IGNORE, contentValuesTask5);
 

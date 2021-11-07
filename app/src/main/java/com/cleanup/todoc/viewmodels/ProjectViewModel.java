@@ -1,4 +1,4 @@
-package com.cleanup.todoc.viewmodel;
+package com.cleanup.todoc.viewmodels;
 
 import android.app.Application;
 
@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData;
 
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
-import com.cleanup.todoc.repository.ProjectDataRepository;
-import com.cleanup.todoc.repository.TaskDataRepository;
+import com.cleanup.todoc.repositories.ProjectDataRepository;
+import com.cleanup.todoc.repositories.TaskDataRepository;
 
 import java.util.List;
 
@@ -40,8 +40,8 @@ public class ProjectViewModel extends AndroidViewModel {
         return mProjectDataRepository.getAllProjects();
     }
 
-    public void createProject(Project project) {
-        mProjectDataRepository.createProject(project);
+    public void insertProject(Project project) {
+        mProjectDataRepository.insertProject(project);
     }
 
     public void deleteProject(Project project) {
@@ -67,8 +67,8 @@ public class ProjectViewModel extends AndroidViewModel {
         return mTaskDataRepository.getAllTasks();
     }
 
-    public void createTask(Task task) {
-        mTaskDataRepository.createTask(task);
+    public void insertTask(Task task) {
+        mTaskDataRepository.insertTask(task);
     }
 
     public void deleteTask(Task task) {

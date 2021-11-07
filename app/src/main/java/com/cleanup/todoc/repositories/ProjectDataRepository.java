@@ -1,4 +1,4 @@
-package com.cleanup.todoc.repository;
+package com.cleanup.todoc.repositories;
 
 import android.app.Application;
 
@@ -34,7 +34,7 @@ public class ProjectDataRepository {
     }
 
     //CREATE
-    public void createProject(Project project) {
+    public void insertProject(Project project) {
         databaseWriteExecutor.execute(() -> mProjectDao.insertProject(project));
     }
 

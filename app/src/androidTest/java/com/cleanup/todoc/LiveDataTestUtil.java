@@ -1,4 +1,4 @@
-package com.cleanup.todoc.dao;
+package com.cleanup.todoc;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;

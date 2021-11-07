@@ -1,4 +1,4 @@
-package com.cleanup.todoc.repository;
+package com.cleanup.todoc.repositories;
 
 import android.app.Application;
 
@@ -32,7 +32,7 @@ public class TaskDataRepository {
 
 
     //CREATE
-    public void createTask(Task task) {
+    public void insertTask(Task task) {
         databaseWriteExecutor.execute(() -> mTaskDao.insertTask(task));
     }
 
