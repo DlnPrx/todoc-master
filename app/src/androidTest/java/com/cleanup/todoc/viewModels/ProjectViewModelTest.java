@@ -18,6 +18,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RunWith(AndroidJUnit4.class)
 public class ProjectViewModelTest {
@@ -42,7 +45,7 @@ public class ProjectViewModelTest {
         initViewModel();
         initModels();
         initObservers();
-        Thread.sleep(2000);
+
     }
 
 

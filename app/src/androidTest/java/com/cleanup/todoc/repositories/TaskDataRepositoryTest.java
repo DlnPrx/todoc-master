@@ -25,8 +25,6 @@ public class TaskDataRepositoryTest {
     TaskDataRepository mTaskDataRepository;
 
 
-
-
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
@@ -39,7 +37,7 @@ public class TaskDataRepositoryTest {
 
     @Before
     public void setUp() throws InterruptedException {
-        Thread.sleep(2000);
+
         initRepository();
 
     }
@@ -68,21 +66,21 @@ public class TaskDataRepositoryTest {
         Assert.assertEquals(5, mTaskArrayList.size());
 
         //insert task, assert  6 tasks
-        Task taskTest = new Task(1, "taskDemo", 145009);
+        Task taskTest = new Task(1, "taskDemo", 1029);
         mTaskDataRepository.insertTask(taskTest);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
-
+        Thread.sleep(2000);
         Assert.assertEquals(6, mTaskArrayList.size());
 
 
         //delete task, assert 5 tasks
         mTaskDataRepository.deleteTask(taskTest);
-        Thread.sleep(5000);
+
         List<Task> mTaskArrayList2;
-        mTaskArrayList2 = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
+        mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
+        //TODO problem
         Assert.assertEquals(5, mTaskArrayList.size());
-        Assert.assertFalse(mTaskArrayList2.contains(taskTest));
 
 
     }
