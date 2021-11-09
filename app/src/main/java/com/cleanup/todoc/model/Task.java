@@ -8,6 +8,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * <p>Model for the tasks of the application.</p>
@@ -147,5 +148,14 @@ public class Task {
             return (int) (left.creationTimestamp - right.creationTimestamp);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+        Task task = (Task) o;
+        return id == task.id && projectId == task.projectId && creationTimestamp == task.creationTimestamp && Objects.equals(name, task.name);
+    }
+
 
 }

@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-
 import com.cleanup.todoc.LiveDataTestUtil;
 import com.cleanup.todoc.database.TodocDatabase;
 import com.cleanup.todoc.model.Project;
@@ -47,7 +46,6 @@ public class ProjectViewModelTest {
     }
 
 
-
     @After
     public void tearDown() {
 
@@ -66,7 +64,7 @@ public class ProjectViewModelTest {
 
 
     @Test
-    public void getAllTasks()  {
+    public void getAllTasks() {
 
 
         Assert.assertEquals(5, mTaskArrayList.size());
@@ -76,13 +74,12 @@ public class ProjectViewModelTest {
     public void insertAndDeleteTask() throws InterruptedException {
 
         //Assert prepopulate TaskList = 5
-         Assert.assertEquals(5, mTaskArrayList.size());
+        Assert.assertEquals(5, mTaskArrayList.size());
 
-        //TODO probleme
+
         //insert one Task and assert taskList = 6
         mTaskTest.setId(10);
         mProjectViewModel.insertTask(mTaskTest);
-
 
 
         Thread.sleep(1000);
@@ -101,9 +98,8 @@ public class ProjectViewModelTest {
     }
 
 
-
     private void initViewModel() {
-       mProjectViewModel = new ProjectViewModel(ApplicationProvider.getApplicationContext());
+        mProjectViewModel = new ProjectViewModel(ApplicationProvider.getApplicationContext());
 
     }
 
@@ -119,8 +115,8 @@ public class ProjectViewModelTest {
     }
 
     private void initObservers() throws InterruptedException {
-    mProjectArrayList = LiveDataTestUtil.getValue(mDatabase.projectDao().getAllProjects());
-    mTaskArrayList = LiveDataTestUtil.getValue(mDatabase.taskDao().getAllTasks());
+        mProjectArrayList = LiveDataTestUtil.getValue(mDatabase.projectDao().getAllProjects());
+        mTaskArrayList = LiveDataTestUtil.getValue(mDatabase.taskDao().getAllTasks());
 
     }
 }

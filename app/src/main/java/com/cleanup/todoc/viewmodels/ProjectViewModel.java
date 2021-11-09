@@ -40,24 +40,6 @@ public class ProjectViewModel extends AndroidViewModel {
         return mProjectDataRepository.getAllProjects();
     }
 
-    public void insertProject(Project project) {
-        mProjectDataRepository.insertProject(project);
-    }
-
-    public void deleteProject(Project project) {
-        mProjectDataRepository.deleteProject(project);
-    }
-
-
-    public void updateProject(Project project) {
-        mProjectDataRepository.updateProject(project);
-
-    }
-
-    public LiveData<Project> getProjectById(long projectId) {
-        return mProjectDataRepository.getProjectById(projectId);
-    }
-
 
     //----------
     // TASKS
@@ -73,10 +55,6 @@ public class ProjectViewModel extends AndroidViewModel {
 
     public void deleteTask(Task task) {
         mTaskDataRepository.deleteTask(task);
-    }
-
-    public void updateTask(Task task) {
-        mTaskDataRepository.updateTask(task);
     }
 
 
