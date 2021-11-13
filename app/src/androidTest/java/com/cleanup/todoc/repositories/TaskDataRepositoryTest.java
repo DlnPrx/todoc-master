@@ -5,12 +5,11 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.cleanup.todoc.LiveDataTestUtil;
+import com.cleanup.todoc.database.TodocDatabase;
 import com.cleanup.todoc.model.Task;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,31 +20,20 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class TaskDataRepositoryTest {
 
-    List<Task> mTaskArrayList;
-    TaskDataRepository mTaskDataRepository;
-
-
+    public static final Task taskDemo = new Task(1, "task demo", 1050);
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-
-
-    @BeforeClass
-    public static void beforeClass() {
-        ApplicationProvider.getApplicationContext().deleteDatabase("todoc_database");
-
-    }
+    List<Task> mTaskArrayList;
+    TaskDataRepository mTaskDataRepository;
+    private TodocDatabase mDatabase;
 
     @Before
     public void setUp() throws InterruptedException {
 
         initRepository();
-
-    }
-
-
-    @After
-    public void tearDown() {
-        ApplicationProvider.getApplicationContext().deleteDatabase("todoc_database");
+        mDatabase = TodocDatabase.getInstance(ApplicationProvider.getApplicationContext());
+        mDatabase.taskDao().deleteAllTasks();
+        // mTaskDataRepository.deleteAllTask();
     }
 
 
@@ -53,8 +41,8 @@ public class TaskDataRepositoryTest {
     public void getAllTasks() throws InterruptedException {
         mTaskArrayList = new ArrayList<>();
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
-        //Assert 5 tasks prepopulate
-        Assert.assertEquals(5, mTaskArrayList.size());
+        //   Thread.sleep(2000);
+        Assert.assertEquals(0, mTaskArrayList.size());
 
     }
 
@@ -63,24 +51,30 @@ public class TaskDataRepositoryTest {
 
         //Assert 5 tasks prepopulate
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
-        Assert.assertEquals(5, mTaskArrayList.size());
+        Assert.assertEquals(0, mTaskArrayList.size());
+
+      /*  for (int i = 0; i < mTaskArrayList.size(); i++){
+            Log.d("test123", "1" + String.valueOf(mTaskArrayList.get(i).getName()));
+        }*/
+
 
         //insert task, assert  6 tasks
         Task taskTest = new Task(1, "taskDemo", 1029);
-        mTaskDataRepository.insertTask(taskTest);
-        Thread.sleep(2000);
+        mTaskDataRepository.insertTask(taskDemo);
+        Thread.sleep(200);
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
-        Thread.sleep(2000);
-        Assert.assertEquals(6, mTaskArrayList.size());
-
+        // Thread.sleep(500);
+        Assert.assertEquals(1, mTaskArrayList.size());
+/*        for (int i = 0; i < mTaskArrayList.size(); i++){
+            Log.d("test123", "2" + String.valueOf(mTaskArrayList.get(i).getName()));
+        }*/
 
         //delete task, assert 5 tasks
-        mTaskDataRepository.deleteTask(taskTest);
-
-        List<Task> mTaskArrayList2;
+        // mTaskDataRepository.deleteTask(taskDemo);
+        mTaskDataRepository.deleteAllTask();
+        Thread.sleep(200);
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
-        //TODO problem
-        Assert.assertEquals(5, mTaskArrayList.size());
+        Assert.assertEquals(0, mTaskArrayList.size());
 
 
     }

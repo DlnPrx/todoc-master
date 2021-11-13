@@ -7,7 +7,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.cleanup.todoc.LiveDataTestUtil;
 import com.cleanup.todoc.model.Project;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -21,24 +20,15 @@ import java.util.List;
 public class ProjectDataRepositoryTest {
 
 
-    List<Project> mProjectArrayList;
-    ProjectDataRepository mProjectDataRepository;
-
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-
+    List<Project> mProjectArrayList;
+    ProjectDataRepository mProjectDataRepository;
 
     @Before
     public void setUp() {
 
-        ApplicationProvider.getApplicationContext().deleteDatabase("todoc_database");
         initRepository();
-    }
-
-
-    @After
-    public void tearDown() {
-        ApplicationProvider.getApplicationContext().deleteDatabase("todoc_database");
     }
 
 
@@ -54,7 +44,6 @@ public class ProjectDataRepositoryTest {
 
 
     private void initRepository() {
-        //  mProjectTest = new Project(3, "Project Test", 0xFFB4CDBA);
         mProjectDataRepository = new ProjectDataRepository(ApplicationProvider.getApplicationContext());
     }
 }

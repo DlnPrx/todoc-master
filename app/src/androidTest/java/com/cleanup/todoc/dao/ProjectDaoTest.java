@@ -27,19 +27,19 @@ import java.util.List;
 public class ProjectDaoTest {
 
 
-    //database
-    private TodocDatabase mDatabase;
     //DATA
     private static final long PROJECT_ID = 1;
     private static final String PROJECT_NAME = "Project name test";
     private static final int PROJECT_COLOR = Color.rgb(100, 0, 0);
     private static final Project PROJECT_DEMO = new Project(PROJECT_ID, PROJECT_NAME, PROJECT_COLOR);
-
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+    //database
+    private TodocDatabase mDatabase;
 
     @Before
     public void initDb() {
+
         this.mDatabase = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().getTargetContext(),
                 TodocDatabase.class)
                 .allowMainThreadQueries()
@@ -47,7 +47,7 @@ public class ProjectDaoTest {
     }
 
     @After
-    public void closeDb()  {
+    public void closeDb() {
         mDatabase.close();
     }
 

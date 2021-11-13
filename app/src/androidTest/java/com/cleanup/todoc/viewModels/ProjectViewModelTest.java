@@ -10,7 +10,6 @@ import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.viewmodels.ProjectViewModel;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,13 +17,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @RunWith(AndroidJUnit4.class)
 public class ProjectViewModelTest {
 
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
     ProjectViewModel mProjectViewModel;
     TodocDatabase mDatabase;
     Task mTaskTest;
@@ -32,15 +30,11 @@ public class ProjectViewModelTest {
     List<Task> mTaskArrayList;
     List<Project> mProjectArrayList;
 
-
-    @Rule
-    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-
-
     @Before
     public void setUp() throws InterruptedException {
 
-        ApplicationProvider.getApplicationContext().deleteDatabase("todoc_database");
+        TodocDatabase database = TodocDatabase.getInstance(ApplicationProvider.getApplicationContext());
+        database.taskDao().deleteAllTasks();
         initDatabase();
         initViewModel();
         initModels();
@@ -49,17 +43,10 @@ public class ProjectViewModelTest {
     }
 
 
-    @After
-    public void tearDown() {
-
-        ApplicationProvider.getApplicationContext().deleteDatabase("todoc_database");
-    }
-
-
     @Test
-    public void getAllProjects() throws InterruptedException {
+    public void getAllProjects() {
 
-        Thread.sleep(1000);
+        //  Thread.sleep(1000);
         //Assert 3 projects prepopulate
         Assert.assertEquals(3, mProjectArrayList.size());
 
@@ -70,33 +57,34 @@ public class ProjectViewModelTest {
     public void getAllTasks() {
 
 
-        Assert.assertEquals(5, mTaskArrayList.size());
+        Assert.assertEquals(0, mTaskArrayList.size());
     }
 
     @Test
     public void insertAndDeleteTask() throws InterruptedException {
 
         //Assert prepopulate TaskList = 5
-        Assert.assertEquals(5, mTaskArrayList.size());
+        Assert.assertEquals(0, mTaskArrayList.size());
 
 
         //insert one Task and assert taskList = 6
-        mTaskTest.setId(10);
+        mTaskTest.setId(1);
+
         mProjectViewModel.insertTask(mTaskTest);
 
 
-        Thread.sleep(1000);
+        Thread.sleep(200);
 
         mTaskArrayList = LiveDataTestUtil.getValue(mProjectViewModel.getAllTasks());
-        Assert.assertEquals(6, mTaskArrayList.size());
-
+        Assert.assertEquals(1, mTaskArrayList.size());
         //delete the task and assert taskList = 5
         mProjectViewModel.deleteTask(mTaskTest);
+        mProjectViewModel.deleteAllTask();
 
-        Thread.sleep(1000);
+        Thread.sleep(200);
         mTaskArrayList = LiveDataTestUtil.getValue(mProjectViewModel.getAllTasks());
-        Thread.sleep(1000);
-        Assert.assertEquals(5, mTaskArrayList.size());
+        Thread.sleep(200);
+        Assert.assertEquals(0, mTaskArrayList.size());
 
     }
 
@@ -122,4 +110,5 @@ public class ProjectViewModelTest {
         mTaskArrayList = LiveDataTestUtil.getValue(mDatabase.taskDao().getAllTasks());
 
     }
+
 }

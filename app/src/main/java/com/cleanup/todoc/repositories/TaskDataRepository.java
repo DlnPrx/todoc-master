@@ -45,6 +45,8 @@ public class TaskDataRepository {
     public void updateTask(Task task) {
         databaseWriteExecutor.execute(() -> mTaskDao.updateTask(task));
     }
-
-
+    //DELETE ALL TASK
+    public void deleteAllTask(){
+        databaseWriteExecutor.execute(mTaskDao::deleteAllTasks);
+    }
 }

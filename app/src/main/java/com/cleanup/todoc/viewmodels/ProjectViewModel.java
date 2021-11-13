@@ -57,7 +57,7 @@ public class ProjectViewModel extends AndroidViewModel {
         mTaskDataRepository.deleteTask(task);
     }
 
-
+    public void deleteAllTask(){mTaskDataRepository.deleteAllTask();}
 }
 
 

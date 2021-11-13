@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -24,13 +23,12 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import com.cleanup.todoc.R;
-
+import com.cleanup.todoc.database.TodocDatabase;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,59 +37,10 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 
 public class MainActivityTest {
+
+
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
-
-
-    @BeforeClass
-    public static void beforeClass()  {
-
-        ApplicationProvider.getApplicationContext().deleteDatabase("todoc_database");
-
-    }
-
-
-
-    @Test
-    public void AddAndDeleteTaskWithSuccess()  {
-
-        ViewInteraction floatingActionButton = onView((withId(R.id.fab_add_task)));
-
-        floatingActionButton.perform(click());
-
-        ViewInteraction appCompatEditText = onView(
-                withId(R.id.txt_task_name));
-        appCompatEditText.perform(replaceText("test"), closeSoftKeyboard());
-
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(android.R.id.button1), withText("Add"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                3)));
-        appCompatButton.perform(scrollTo(), click());
-
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.lbl_task_name), withText("Test"),
-                        isDisplayed()));
-
-        textView.check(matches(withText("Test")));
-
-
-
-        ViewInteraction appCompatImageView = onView(
-                allOf(withId(R.id.img_delete),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.list_tasks),
-                                        5),
-                                1),
-                        isDisplayed()));
-        appCompatImageView.perform(click());
-
-
-    }
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
@@ -110,6 +59,65 @@ public class MainActivityTest {
                         && view.equals(((ViewGroup) parent).getChildAt(position));
             }
         };
+    }
+
+    @Before
+    public void init() throws InterruptedException {
+        TodocDatabase database = TodocDatabase.getInstance(ApplicationProvider.getApplicationContext());
+        database.taskDao().deleteAllTasks();
+        Thread.sleep(2000);
+    }
+
+    @Test
+    public void AddAndDeleteTaskWithSuccess() {
+
+        ViewInteraction floatingActionButton = onView((withId(R.id.fab_add_task)));
+
+        floatingActionButton.perform(click());
+
+        ViewInteraction appCompatEditText = onView(
+                withId(R.id.txt_task_name));
+        appCompatEditText.perform(replaceText("test"), closeSoftKeyboard());
+
+
+
+/*
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(android.R.id.button1), withText("Add"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.buttonPanel),
+                                        0),
+                                3)));
+        appCompatButton.perform(scrollTo(), click());
+*/
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(android.R.id.button1), withText(R.string.add),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.buttonPanel),
+                                        0),
+                                3)));
+        appCompatButton.perform(scrollTo(), click());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.lbl_task_name), withText("Test"),
+                        isDisplayed()));
+
+        textView.check(matches(withText("Test")));
+
+
+        ViewInteraction appCompatImageView = onView(
+                allOf(withId(R.id.img_delete),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.list_tasks),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatImageView.perform(click());
+
+
     }
 
 }

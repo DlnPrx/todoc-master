@@ -22,19 +22,16 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class TaskDaoTest {
 
-    //database
-    private TodocDatabase mDatabase;
-
     //DATA
     private static final long PROJECT_ID = 0;
     private static final Project PROJECT_DEMO = new Project(PROJECT_ID, "Project One", 0xFFEADAD1);
     private static final String TASK_NAME = "Task name test";
-
     private static final long TIMESTAMP = 1001;
     private static final Task TASK_DEMO = new Task(PROJECT_ID, TASK_NAME, TIMESTAMP);
-
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+    //database
+    private TodocDatabase mDatabase;
 
     @Before
     public void initDb() {
