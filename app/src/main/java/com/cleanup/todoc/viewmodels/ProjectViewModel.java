@@ -11,19 +11,15 @@ import com.cleanup.todoc.repositories.ProjectDataRepository;
 import com.cleanup.todoc.repositories.TaskDataRepository;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ProjectViewModel extends AndroidViewModel {
-    //----------
-    //REPOSITORIES
-    //----------
+
     private final ProjectDataRepository mProjectDataRepository;
     private final TaskDataRepository mTaskDataRepository;
 
-
-    //----------
-    //DATA
-    //----------
-
+    private final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
 
     public ProjectViewModel(Application application) {
         super(application);
@@ -50,14 +46,30 @@ public class ProjectViewModel extends AndroidViewModel {
     }
 
     public void insertTask(Task task) {
-        mTaskDataRepository.insertTask(task);
+        databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mTaskDataRepository.insertTask(task);
+            }
+        });
     }
 
-    public void deleteTask(Task task) {
-        mTaskDataRepository.deleteTask(task);
+    public void deleteTask(Task task) {databaseWriteExecutor.execute(new Runnable() {
+        @Override
+        public void run() {
+            mTaskDataRepository.deleteTask(task);
+        }
+    });
+
     }
 
-    public void deleteAllTask(){mTaskDataRepository.deleteAllTask();}
+    public void deleteAllTask(){databaseWriteExecutor.execute(new Runnable() {
+        @Override
+        public void run() {
+            mTaskDataRepository.deleteAllTask();
+        }
+    });
+        }
 }
 
 

@@ -23,6 +23,7 @@ public class ProjectViewModelTest {
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
     ProjectViewModel mProjectViewModel;
     TodocDatabase mDatabase;
     Task mTaskTest;
@@ -33,8 +34,7 @@ public class ProjectViewModelTest {
     @Before
     public void setUp() throws InterruptedException {
 
-        TodocDatabase database = TodocDatabase.getInstance(ApplicationProvider.getApplicationContext());
-        database.taskDao().deleteAllTasks();
+        cleanDatabase();
         initDatabase();
         initViewModel();
         initModels();
@@ -46,7 +46,6 @@ public class ProjectViewModelTest {
     @Test
     public void getAllProjects() {
 
-        //  Thread.sleep(1000);
         //Assert 3 projects prepopulate
         Assert.assertEquals(3, mProjectArrayList.size());
 
@@ -63,27 +62,20 @@ public class ProjectViewModelTest {
     @Test
     public void insertAndDeleteTask() throws InterruptedException {
 
-        //Assert prepopulate TaskList = 5
+        //Assert TaskList = 0
         Assert.assertEquals(0, mTaskArrayList.size());
 
 
-        //insert one Task and assert taskList = 6
-        mTaskTest.setId(1);
-
+        //insert one Task and assert taskList = 1
         mProjectViewModel.insertTask(mTaskTest);
-
-
-        Thread.sleep(200);
-
+        Thread.sleep(10);
         mTaskArrayList = LiveDataTestUtil.getValue(mProjectViewModel.getAllTasks());
         Assert.assertEquals(1, mTaskArrayList.size());
-        //delete the task and assert taskList = 5
-        mProjectViewModel.deleteTask(mTaskTest);
-        mProjectViewModel.deleteAllTask();
 
-        Thread.sleep(200);
+        //delete the task and assert taskList = 0
+        mProjectViewModel.deleteAllTask();
+        Thread.sleep(10);
         mTaskArrayList = LiveDataTestUtil.getValue(mProjectViewModel.getAllTasks());
-        Thread.sleep(200);
         Assert.assertEquals(0, mTaskArrayList.size());
 
     }
@@ -91,16 +83,13 @@ public class ProjectViewModelTest {
 
     private void initViewModel() {
         mProjectViewModel = new ProjectViewModel(ApplicationProvider.getApplicationContext());
-
     }
 
     private void initDatabase() {
-
         mDatabase = TodocDatabase.getInstance(ApplicationProvider.getApplicationContext());
     }
 
     private void initModels() {
-        //  mProjectTest = new Project(3, "Project Test", 0xFFB4CDBA);
         mTaskTest = new Task(1, "Task test", 1050);
         mTaskTest2 = new Task(1, "Task test2", 1051);
     }
@@ -109,6 +98,11 @@ public class ProjectViewModelTest {
         mProjectArrayList = LiveDataTestUtil.getValue(mDatabase.projectDao().getAllProjects());
         mTaskArrayList = LiveDataTestUtil.getValue(mDatabase.taskDao().getAllTasks());
 
+    }
+
+    private void cleanDatabase() {
+        TodocDatabase database = TodocDatabase.getInstance(ApplicationProvider.getApplicationContext());
+        database.taskDao().deleteAllTasks();
     }
 
 }

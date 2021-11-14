@@ -25,15 +25,13 @@ public class TaskDataRepositoryTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
     List<Task> mTaskArrayList;
     TaskDataRepository mTaskDataRepository;
-    private TodocDatabase mDatabase;
 
     @Before
-    public void setUp() throws InterruptedException {
+    public void setUp() {
 
         initRepository();
-        mDatabase = TodocDatabase.getInstance(ApplicationProvider.getApplicationContext());
-        mDatabase.taskDao().deleteAllTasks();
-        // mTaskDataRepository.deleteAllTask();
+        TodocDatabase database = TodocDatabase.getInstance(ApplicationProvider.getApplicationContext());
+        database.taskDao().deleteAllTasks();
     }
 
 
@@ -41,7 +39,6 @@ public class TaskDataRepositoryTest {
     public void getAllTasks() throws InterruptedException {
         mTaskArrayList = new ArrayList<>();
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
-        //   Thread.sleep(2000);
         Assert.assertEquals(0, mTaskArrayList.size());
 
     }
@@ -49,30 +46,17 @@ public class TaskDataRepositoryTest {
     @Test
     public void insertGetAndDeleteTask() throws InterruptedException {
 
-        //Assert 5 tasks prepopulate
+        //Assert 0 tasks
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
         Assert.assertEquals(0, mTaskArrayList.size());
 
-      /*  for (int i = 0; i < mTaskArrayList.size(); i++){
-            Log.d("test123", "1" + String.valueOf(mTaskArrayList.get(i).getName()));
-        }*/
-
-
-        //insert task, assert  6 tasks
-        Task taskTest = new Task(1, "taskDemo", 1029);
+        //insert task, assert  1 tasks
         mTaskDataRepository.insertTask(taskDemo);
-        Thread.sleep(200);
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
-        // Thread.sleep(500);
         Assert.assertEquals(1, mTaskArrayList.size());
-/*        for (int i = 0; i < mTaskArrayList.size(); i++){
-            Log.d("test123", "2" + String.valueOf(mTaskArrayList.get(i).getName()));
-        }*/
 
-        //delete task, assert 5 tasks
-        // mTaskDataRepository.deleteTask(taskDemo);
+        //delete task, assert 0 tasks
         mTaskDataRepository.deleteAllTask();
-        Thread.sleep(200);
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
         Assert.assertEquals(0, mTaskArrayList.size());
 

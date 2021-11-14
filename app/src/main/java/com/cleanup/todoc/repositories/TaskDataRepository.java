@@ -16,7 +16,7 @@ public class TaskDataRepository {
 
     private final TaskDao mTaskDao;
 
-    static final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
+
 
 
     public TaskDataRepository(Application application) {
@@ -30,23 +30,15 @@ public class TaskDataRepository {
         return mTaskDao.getAllTasks();
     }
 
-
     //CREATE
-    public void insertTask(Task task) {
-        databaseWriteExecutor.execute(() -> mTaskDao.insertTask(task));
-    }
+    public void insertTask(Task task) {mTaskDao.insertTask(task);}
 
     //DELETE
-    public void deleteTask(Task task) {
-        databaseWriteExecutor.execute(() -> mTaskDao.deleteTask(task));
-    }
+    public void deleteTask(Task task) {mTaskDao.deleteTask(task);}
 
     //UPDATE
-    public void updateTask(Task task) {
-        databaseWriteExecutor.execute(() -> mTaskDao.updateTask(task));
-    }
+    public void updateTask(Task task) {mTaskDao.updateTask(task);}
+
     //DELETE ALL TASK
-    public void deleteAllTask(){
-        databaseWriteExecutor.execute(mTaskDao::deleteAllTasks);
-    }
+    public void deleteAllTask(){mTaskDao.deleteAllTasks();}
 }
