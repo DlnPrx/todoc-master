@@ -63,8 +63,8 @@ public class ProjectDaoTest {
 
     @Test
     public void insertGetAndDeleteProject() throws InterruptedException {
-        // Adding a new project
 
+        //insert a new project
         mDatabase.projectDao().insertProject(PROJECT_DEMO);
         List<Project> projectList = LiveDataTestUtil.getValue(mDatabase.projectDao().getAllProjects());
         Assert.assertEquals(1, projectList.size());
