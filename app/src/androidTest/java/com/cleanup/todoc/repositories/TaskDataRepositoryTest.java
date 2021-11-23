@@ -50,11 +50,11 @@ public class TaskDataRepositoryTest {
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
         Assert.assertEquals(0, mTaskArrayList.size());
 
-        //insert task, assert  1 tasks
+        //insert task, assert  1 tasks and task name = task demo
         mTaskDataRepository.insertTask(taskDemo);
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
         Assert.assertEquals(1, mTaskArrayList.size());
-
+        Assert.assertEquals(mTaskArrayList.get(0).getName(),taskDemo.getName());
         //delete task, assert 0 tasks
         mTaskDataRepository.deleteAllTask();
         mTaskArrayList = LiveDataTestUtil.getValue(mTaskDataRepository.getAllTasks());
