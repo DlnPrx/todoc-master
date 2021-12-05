@@ -18,7 +18,6 @@ public class ProjectViewModel extends AndroidViewModel {
 
     private final ProjectDataRepository mProjectDataRepository;
     private final TaskDataRepository mTaskDataRepository;
-
     private final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
 
     public ProjectViewModel(Application application) {
@@ -46,29 +45,14 @@ public class ProjectViewModel extends AndroidViewModel {
     }
 
     public void insertTask(Task task) {
-        databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mTaskDataRepository.insertTask(task);
-            }
-        });
+        databaseWriteExecutor.execute(() -> mTaskDataRepository.insertTask(task));
     }
 
-    public void deleteTask(Task task) {databaseWriteExecutor.execute(new Runnable() {
-        @Override
-        public void run() {
-            mTaskDataRepository.deleteTask(task);
-        }
-    });
+    public void deleteTask(Task task) {databaseWriteExecutor.execute(() -> mTaskDataRepository.deleteTask(task));
 
     }
 
-    public void deleteAllTask(){databaseWriteExecutor.execute(new Runnable() {
-        @Override
-        public void run() {
-            mTaskDataRepository.deleteAllTask();
-        }
-    });
+    public void deleteAllTask(){databaseWriteExecutor.execute(mTaskDataRepository::deleteAllTask);
         }
 }
 

@@ -196,10 +196,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         final AlertDialog dialog = getAddTaskDialog();
 
         dialog.show();
-
         dialogEditText = dialog.findViewById(R.id.txt_task_name);
         dialogSpinner = dialog.findViewById(R.id.project_spinner);
-
         populateDialogSpinner();
     }
 

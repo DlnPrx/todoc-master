@@ -9,14 +9,10 @@ import com.cleanup.todoc.database.TodocDatabase;
 import com.cleanup.todoc.model.Task;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class TaskDataRepository {
 
     private final TaskDao mTaskDao;
-
-
 
 
     public TaskDataRepository(Application application) {
@@ -31,14 +27,17 @@ public class TaskDataRepository {
     }
 
     //CREATE
-    public void insertTask(Task task) {mTaskDao.insertTask(task);}
+    public void insertTask(Task task) {
+        mTaskDao.insertTask(task);
+    }
 
     //DELETE
-    public void deleteTask(Task task) {mTaskDao.deleteTask(task);}
-
-    //UPDATE
-    public void updateTask(Task task) {mTaskDao.updateTask(task);}
+    public void deleteTask(Task task) {
+        mTaskDao.deleteTask(task);
+    }
 
     //DELETE ALL TASK
-    public void deleteAllTask(){mTaskDao.deleteAllTasks();}
+    public void deleteAllTask() {
+        mTaskDao.deleteAllTasks();
+    }
 }

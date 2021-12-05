@@ -5,7 +5,6 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import com.cleanup.todoc.model.Project;
 
@@ -19,13 +18,10 @@ public interface ProjectDao {
     @Query("SELECT * FROM project_table WHERE project_id = :projectId")
     LiveData<Project> getProjectById(long projectId);
 
-
     @Insert
     void insertProject(Project project);
 
     @Delete
     void deleteProject(Project project);
 
-    @Update
-    void updateProject(Project project);
 }
