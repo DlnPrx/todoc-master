@@ -48,6 +48,7 @@ public abstract class TodocDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
+            //Projects
             ContentValues contentValuesProject1 = new ContentValues();
             contentValuesProject1.put("project_id", 0);
             contentValuesProject1.put("name", "Projet Tartampion");
@@ -63,6 +64,7 @@ public abstract class TodocDatabase extends RoomDatabase {
             contentValuesProject3.put("name", "Projet Circus");
             contentValuesProject3.put("color", 0xFFA3CED2);
 
+            //Tasks
             ContentValues contentValuesTask1 = new ContentValues();
             contentValuesTask1.put("name", "Ajouter un header sur le site");
             contentValuesTask1.put("projectId", 0);
