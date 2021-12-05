@@ -14,7 +14,6 @@ public class TaskDataRepository {
 
     private final TaskDao mTaskDao;
 
-
     public TaskDataRepository(Application application) {
         TodocDatabase todocDatabase = TodocDatabase.getInstance(application);
         mTaskDao = todocDatabase.taskDao();
@@ -26,17 +25,17 @@ public class TaskDataRepository {
         return mTaskDao.getAllTasks();
     }
 
-    //CREATE
+    //CREATE A NEW TASK
     public void insertTask(Task task) {
         mTaskDao.insertTask(task);
     }
 
-    //DELETE
+    //DELETE A TASK
     public void deleteTask(Task task) {
         mTaskDao.deleteTask(task);
     }
 
-    //DELETE ALL TASK
+    //DELETE ALL TASKS
     public void deleteAllTask() {
         mTaskDao.deleteAllTasks();
     }

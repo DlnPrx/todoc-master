@@ -54,12 +54,6 @@ public class ProjectDaoTest {
 
     //TESTS
 
-    @Test
-    public void testInitDatabase() {
-
-        Assert.assertNotNull(this.mDatabase);
-
-    }
 
     @Test
     public void insertGetAndDeleteProject() throws InterruptedException {

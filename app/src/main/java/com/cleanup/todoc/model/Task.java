@@ -53,7 +53,6 @@ public class Task {
         this.creationTimestamp = creationTimestamp;
     }
 
-
     /**
      * Returns the unique identifier of the task.
      *

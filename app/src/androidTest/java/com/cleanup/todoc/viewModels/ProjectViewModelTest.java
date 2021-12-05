@@ -39,7 +39,6 @@ public class ProjectViewModelTest {
         initViewModel();
         initModels();
         initObservers();
-
     }
 
 
@@ -48,13 +47,11 @@ public class ProjectViewModelTest {
 
         //Assert 3 projects prepopulate
         Assert.assertEquals(3, mProjectArrayList.size());
-
     }
 
 
     @Test
     public void getAllTasks() {
-
 
         Assert.assertEquals(0, mTaskArrayList.size());
     }

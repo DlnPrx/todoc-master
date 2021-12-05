@@ -26,7 +26,6 @@ public abstract class TodocDatabase extends RoomDatabase {
     private static final ExecutorService databaseWriteExecutor = Executors.newSingleThreadExecutor();
 
     public abstract ProjectDao projectDao();
-
     public abstract TaskDao taskDao();
 
 

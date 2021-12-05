@@ -62,10 +62,10 @@ public class MainActivityTest {
     }
 
     @Before
-    public void init() throws InterruptedException {
+    public void init() {
         TodocDatabase database = TodocDatabase.getInstance(ApplicationProvider.getApplicationContext());
         database.taskDao().deleteAllTasks();
-        Thread.sleep(2000);
+
     }
 
     @Test
@@ -79,18 +79,6 @@ public class MainActivityTest {
                 withId(R.id.txt_task_name));
         appCompatEditText.perform(replaceText("test"), closeSoftKeyboard());
 
-
-
-/*
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(android.R.id.button1), withText("Add"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                3)));
-        appCompatButton.perform(scrollTo(), click());
-*/
         ViewInteraction appCompatButton = onView(
                 allOf(withId(android.R.id.button1), withText(R.string.add),
                         childAtPosition(

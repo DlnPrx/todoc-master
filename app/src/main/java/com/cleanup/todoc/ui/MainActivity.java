@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private ProjectViewModel mProjectViewModel;
 
-
     /**
      * List of all projects available in the application
      */
